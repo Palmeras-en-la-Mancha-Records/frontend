@@ -12,7 +12,7 @@
             <i class="material-symbols-rounded">storefront</i>
             + Nueva Filial
         </button>
-        <button class="btn btn-yellow">
+        <button class="btn btn-yellow" id="openModal">
             <i class="material-symbols-rounded">add_circle</i>
             + Añadir Disco
         </button>
@@ -70,5 +70,58 @@
                 <p class="empty-state-desc">El resumen de sedes se sincronizará con el backend.</p>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="discModal" class="modal">
+    <div class="modal-content modal-large">
+        <button id="closeModal" class="close">×</button>
+
+        <h2>Añadir disco</h2>
+
+        <form id="discForm">
+            <div class="modal-grid">
+                <!-- Left Column: Data -->
+                <div class="modal-col">
+                    <label for="title">Título</label>
+                    <input type="text" id="title" required>
+
+                    <label for="artist">Artista</label>
+                    <input type="text" id="artist" required>
+
+                    <label for="release_year">Año</label>
+                    <input type="number" id="release_year" required>
+
+                    <label for="genre">Género</label>
+                    <input type="text" id="genre" required>
+
+                    <label for="record_labels">Discográfica</label>
+                    <input type="text" id="record_labels.id" required>
+
+                    <label for="price">Precio</label>
+                    <input type="number" id="price" step="0.01" required>
+                </div>
+
+                <!-- Right Column: Image -->
+                <div class="modal-col">
+                    <label>Portada del Disco</label>
+                    <div class="image-upload-box" id="imageUploadBox">
+                        <input type="file" id="cover_image_file" accept="image/*">
+                        <i class="material-symbols-rounded upload-icon">add_photo_alternate</i>
+                        <p>Haz clic para cambiar<br>la imagen</p>
+                        <img id="coverPreview" src="src/img/dvd_placeholder.png" alt="Previsualización">
+                    </div>
+                    
+                    <!-- Original URL field fallback (optional) -->
+                    <label for="cover_image_url" style="margin-top: 16px;">O URL de la imagen</label>
+                    <input type="url" id="cover_image_url" placeholder="https://...">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn-submit">Añadir disco</button>
+            </div>
+        </form>
     </div>
 </div>
