@@ -24,7 +24,136 @@
 
         <!-- Main Content -->
         <main class="content">
-            <!-- Contenido propio de esta página -->
+
+            <!-- Filters -->
+            <div class="filter-card">
+                <div class="filter-grid">
+                    <div class="filter-group">
+                        <label class="filter-label"><i class="material-symbols-rounded">search</i> Buscar Álbum o
+                            Artista</label>
+                        <input type="text" placeholder="El Poeta Halley" class="filter-input">
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label"><i class="material-symbols-rounded">music_note</i> Género
+                            Musical</label>
+                        <select class="filter-select">
+                            <option>Indie Rock</option>
+                            <option>Pop Alternativo</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label"><i class="material-symbols-rounded">album</i> Formato Físico</label>
+                        <select class="filter-select">
+                            <option>Todos los formatos</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label"><i class="material-symbols-rounded">domain</i> Sello /
+                            Discográfica</label>
+                        <select class="filter-select">
+                            <option>Warner Music Spain</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label"><i class="material-symbols-rounded">storefront</i> Filial / Tienda 
+                            física</label>
+                        <select class="filter-select">
+                            <option>Todos los establecimientos</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="genres-row">
+                    <span class="genres-label"><i class="material-symbols-rounded">tune</i> GÉNEROS:</span>
+                    <span class="tag active">Indie Rock</span>
+                    <span class="tag inactive">Pop Alternativo</span>
+                    <span class="tag inactive">Flamenco Urbano</span>
+                    <span class="tag inactive">Shoegaze / Dream Pop</span>
+                    <span class="tag inactive">Electrónica</span>
+                </div>
+
+                <div class="filter-actions">
+                    <button class="btn btn-outline">
+                        <i class="material-symbols-rounded">refresh</i> Limpiar
+                    </button>
+                    <button class="btn btn-dark">
+                        <i class="material-symbols-rounded">filter_alt</i> Aplicar Filtros
+                    </button>
+                    <button class="btn btn-yellow">
+                        <i class="material-symbols-rounded">add_circle</i> Nuevo Disco Físico
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Records, ready for Back-end -->
+            <div class="cards-grid" id="catalog-grid">
+
+                
+                <!-- Album card -->
+                <div class="card">
+                    <div class="album-cover-container">
+                        <img src="album-cover.jpg" alt="Album Cover">
+                        <span class="badge">Categoría</span>
+                        <span class="badge">Género</span>
+                    </div>
+                    <div class="card-content">
+                        <h4>Nombre del Álbum</h4>
+                        <p class="artist">Nombre del Artista</p>
+                        <p class="price">€19.99</p>
+                    </div>
+                    <button class="btn btn-outline">Editar</button>
+                    <button class="btn btn-danger">Eliminar</button>
+                </div>
+
+                <div class="card">
+                    <div class="album-cover-container">
+                        <img src="album-cover.jpg" alt="Album Cover">
+                        <span class="badge">Categoría</span>
+                        <span class="badge">Género</span>
+                    </div>
+                    <div class="card-content">
+                        <h4>Nombre del Álbum</h4>
+                        <p class="artist">Nombre del Artista</p>
+                        <p class="price">€19.99</p>
+                    </div>
+                    <button class="btn btn-outline">Editar</button>
+                    <button class="btn btn-danger">Eliminar</button>
+                </div>
+
+                <div class="card">
+                    <div class="album-cover-container">
+                        <img src="album-cover.jpg" alt="Album Cover">
+                        <span class="badge">Categoría</span>
+                        <span class="badge">Género</span>
+                    </div>
+                    <div class="card-content">
+                        <h4>Nombre del Álbum</h4>
+                        <p class="artist">Nombre del Artista</p>
+                        <p class="price">€19.99</p>
+                    </div>
+                    <button class="btn btn-outline">Editar</button>
+                    <button class="btn btn-danger">Eliminar</button>
+                </div>
+
+                <div class="card">
+                    <div class="album-cover-container">
+                        <img src="album-cover.jpg" alt="Album Cover">
+                        <span class="badge">Categoría</span>
+                        <span class="badge">Género</span>
+                    </div>
+                    <div class="card-content">
+                        <h4>Nombre del Álbum</h4>
+                        <p class="artist">Nombre del Artista</p>
+                        <p class="price">€19.99</p>
+                    </div>
+                    <button class="btn btn-outline">Editar</button>
+                    <button class="btn btn-danger">Eliminar</button>
+                </div>
+
+
+
+            </div>  
+
         </main>
     </div>
 
