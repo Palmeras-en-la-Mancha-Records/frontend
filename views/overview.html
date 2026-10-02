@@ -72,3 +72,55 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div id="discModal" class="modal">
+    <div class="modal-content">
+        <button id="closeModal" class="close">×</button>
+
+        <h2>Añadir disco</h2>
+
+        <form id="discForm">
+            <label for="title">Título</label>
+            <input type="text" id="title" required>
+
+            <label for="artist">Artista</label>
+            <input type="text" id="artist" required>
+
+            <label for="release_year">Año</label>
+            <input type="number" id="release_year" required>
+
+            <label for="genre">Género</label>
+            <input type="text" id="genre" required>
+
+            <label for="cover_image_url">Portada</label>
+            <input
+                type="url"
+                id="cover_image_url"
+                name="cover_image_url"
+                placeholder=""
+                required
+            >
+
+            <img
+                id="coverPreview"
+                class="cover-preview"
+                src=""
+                alt="Previsualización de la portada"
+                style="display: none;"
+            >
+
+            <label for="record_labels">Discográfica</label>
+            <input type="text" id="record_labels.id" required>
+
+            <label for="price">Precio</label>
+            <input type="number" id="price" step="0.01" required>
+
+            <button type="submit">
+                Añadir disco
+            </button>
+        </form>
+    </div>
+</div>
+
+<script src="js/script.js"></script>
