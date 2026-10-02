@@ -1,10 +1,10 @@
 // Fetch and inject Header Component
-fetch('components/header_component.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('header-container').outerHTML = data;
-    })
-    .catch(error => console.error('Error loading header component:', error));
+fetch("components/header_component.html")
+  .then((response) => response.text())
+  .then((data) => {
+    document.getElementById("header-container").outerHTML = data;
+  })
+  .catch((error) => console.error("Error loading header component:", error));
 
 // Fetch and inject Sidebar Component
 fetch('components/sidebar_component.html')
@@ -38,7 +38,7 @@ function loadView(viewName) {
                     <i class="material-symbols-rounded empty-state-icon">error</i>
                     <h3 class="empty-state-title">Error al cargar la vista</h3>
                 </div>`;
-        });
+    });
 }
 
 function initRouter() {
@@ -67,8 +67,7 @@ function initRouter() {
                         <h3 class="empty-state-title">Vista en construcción</h3>
                         <p class="empty-state-desc">La sección "${text}" estará disponible próximamente.</p>
                     </div>`;
-            }
-        });
+      }
     });
     
     // Load the default view upon entering the app (Overview)
