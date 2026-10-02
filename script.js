@@ -15,7 +15,7 @@ fetch('components/sidebar_component.html')
     })
     .catch(error => console.error('Error loading sidebar component:', error));
 
-// Lógica de enrutamiento (SPA)
+// Routing logic (SPA)
 function loadView(viewName) {
     const mainView = document.getElementById('main-view');
     mainView.innerHTML = '<div style="display:flex; justify-content:center; padding: 40px;"><i class="material-symbols-rounded" style="font-size: 48px; opacity: 0.5;">sync</i></div>';
@@ -24,6 +24,10 @@ function loadView(viewName) {
         .then(response => response.text())
         .then(data => {
             mainView.innerHTML = data;
+
+            if (viewName === 'overview') {
+                bindOverviewModal();
+            }
         })
         .catch(error => {
             console.error('Error cargando la vista:', error);
@@ -65,11 +69,56 @@ function initRouter() {
         });
     });
     
-    // Cargar la vista por defecto al entrar a la app (Visión General)
+    // Load the default view upon entering the app (Overview)
     const initialItem = Array.from(menuItems).find(i => i.innerText.includes('Visión General'));
     if (initialItem) {
         menuItems.forEach(i => i.classList.remove('active'));
         initialItem.classList.add('active');
     }
     loadView('overview');
+}
+
+// Add album modal
+function bindOverviewModal() {
+    const openModalBtn = document.getElementById("openModal");
+    const closeModalBtn = document.getElementById("closeModal");
+    const discModal = document.getElementById("discModal");
+    const discForm = document.getElementById("discForm");
+
+    if (!openModalBtn || !closeModalBtn || !discModal || !discForm) {
+        return;
+    }
+
+    openModalBtn.addEventListener("click", () => {
+        discModal.style.display = "flex";
+    });
+
+    closeModalBtn.addEventListener("click", () => {
+        discModal.style.display = "none";
+    });
+
+    discModal.addEventListener("click", (event) => {
+        if (event.target === discModal) {
+            discModal.style.display = "none";
+        }
+    });
+
+    discForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const disc = {
+            title: document.getElementById("title").value,
+            artist: document.getElementById("artist").value,
+            release_year: document.getElementById("release_year").value,
+            genre: document.getElementById("genre").value,
+            cover_image_url: document.getElementById("cover_image_url").value,
+            record_labels: document.getElementById("record_labels.id").value,
+            price: document.getElementById("price").value,
+        };
+
+        console.log(disc);
+
+        discModal.style.display = "none";
+        discForm.reset();
+    });
 }
