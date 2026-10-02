@@ -11,11 +11,11 @@ fetch('components/sidebar_component.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('sidebar-container').outerHTML = data;
-        initRouter(); // Iniciar el router una vez cargado el sidebar
+        initRouter(); // Initialize router once sidebar is loaded
     })
     .catch(error => console.error('Error loading sidebar component:', error));
 
-// Lógica de enrutamiento (SPA)
+// Routing logic (SPA)
 function loadView(viewName) {
     const mainView = document.getElementById('main-view');
     mainView.innerHTML = '<div style="display:flex; justify-content:center; padding: 40px;"><i class="material-symbols-rounded" style="font-size: 48px; opacity: 0.5;">sync</i></div>';
@@ -24,9 +24,15 @@ function loadView(viewName) {
         .then(response => response.text())
         .then(data => {
             mainView.innerHTML = data;
+
+            // --- Initialize View Features ---
+            if (viewName === 'overview') {
+                bindOverviewModal();
+            }
+            // ---------------------------------------------
         })
         .catch(error => {
-            console.error('Error cargando la vista:', error);
+            console.error('Error loading view:', error);
             mainView.innerHTML = `
                 <div class="empty-state">
                     <i class="material-symbols-rounded empty-state-icon">error</i>
@@ -42,11 +48,11 @@ function initRouter() {
         item.addEventListener('click', (e) => {
             e.preventDefault();
             
-            // Actualizar estilo activo
+            // Update active state
             menuItems.forEach(i => i.classList.remove('active'));
             e.currentTarget.classList.add('active');
             
-            // Determinar qué vista cargar
+            // Determine which view to load
             const text = e.currentTarget.innerText.trim();
             
             if (text.includes('Visión General')) {
@@ -54,7 +60,7 @@ function initRouter() {
             } else if (text.includes('Catálogo Físico Master')) {
                 loadView('catalog');
             } else {
-                // Vista en construcción para los demás enlaces
+                // Under construction view for other links
                 document.getElementById('main-view').innerHTML = `
                     <div class="empty-state">
                         <i class="material-symbols-rounded empty-state-icon">construction</i>
@@ -65,11 +71,88 @@ function initRouter() {
         });
     });
     
-    // Cargar la vista por defecto al entrar a la app (Visión General)
+    // Load the default view upon entering the app (Overview)
     const initialItem = Array.from(menuItems).find(i => i.innerText.includes('Visión General'));
     if (initialItem) {
         menuItems.forEach(i => i.classList.remove('active'));
         initialItem.classList.add('active');
     }
     loadView('overview');
+}
+
+// Add album modal
+function bindOverviewModal() {
+    const openModalBtn = document.getElementById("openModal");
+    const closeModalBtn = document.getElementById("closeModal");
+    const discModal = document.getElementById("discModal");
+    const discForm = document.getElementById("discForm");
+
+    if (!openModalBtn || !closeModalBtn || !discModal || !discForm) {
+        return;
+    }
+
+    openModalBtn.addEventListener("click", () => {
+        discModal.style.display = "flex";
+    });
+
+    closeModalBtn.addEventListener("click", () => {
+        discModal.style.display = "none";
+    });
+
+    discModal.addEventListener("click", (event) => {
+        if (event.target === discModal) {
+            discModal.style.display = "none";
+        }
+    });
+
+    discForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const disc = {
+            title: document.getElementById("title").value,
+            artist: document.getElementById("artist").value,
+            release_year: document.getElementById("release_year").value,
+            genre: document.getElementById("genre").value,
+            cover_image_url: document.getElementById("cover_image_url") ? document.getElementById("cover_image_url").value : '',
+            record_labels: document.getElementById("record_labels.id").value,
+            price: document.getElementById("price").value,
+        };
+
+        console.log(disc);
+
+        discModal.style.display = "none";
+        discForm.reset();
+        
+        // Reset image to placeholder
+        const coverPreview = document.getElementById("coverPreview");
+        const imageUploadBox = document.getElementById("imageUploadBox");
+        if(coverPreview) {
+            coverPreview.src = "src/img/dvd_placeholder.png";
+        }
+        if(imageUploadBox) {
+            imageUploadBox.classList.remove("has-file");
+        }
+    });
+
+    // Local image preview logic
+    const coverInput = document.getElementById("cover_image_file");
+    const coverPreview = document.getElementById("coverPreview");
+    const imageUploadBox = document.getElementById("imageUploadBox");
+    
+    if (coverInput && coverPreview) {
+        coverInput.addEventListener("change", function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    coverPreview.src = e.target.result;
+                    if(imageUploadBox) imageUploadBox.classList.add("has-file");
+                }
+                reader.readAsDataURL(file);
+            } else {
+                coverPreview.src = "src/img/dvd_placeholder.png";
+                if(imageUploadBox) imageUploadBox.classList.remove("has-file");
+            }
+        });
+    }
 }
