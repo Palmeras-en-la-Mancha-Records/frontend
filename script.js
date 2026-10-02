@@ -68,6 +68,7 @@ function initRouter() {
                         <p class="empty-state-desc">La sección "${text}" estará disponible próximamente.</p>
                     </div>`;
       }
+        });
     });
     
     // Load the default view upon entering the app (Overview)
