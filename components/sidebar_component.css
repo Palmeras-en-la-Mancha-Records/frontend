@@ -1,0 +1,53 @@
+/* Sidebar Layout */
+.sidebar { 
+  width: 256px; 
+  background-color: var(--sidebar-bg); 
+  display: flex; 
+  flex-direction: column; 
+  flex-shrink: 0; 
+  border-right: 1px solid var(--border-dark); 
+  color: var(--text-light); 
+}
+
+/* Sidebar Elements */
+.logo-area { 
+  height: 64px; 
+  display: flex; 
+  align-items: center; 
+  padding: 0 24px; 
+  border-bottom: 1px solid var(--border-dark); 
+  flex-shrink: 0; 
+  gap: 12px; 
+}
+.logo-icon { 
+  width: 32px; 
+  height: 32px; 
+  border-radius: 4px; 
+  background: linear-gradient(to bottom right, #6366f1, #9333ea); 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  color: white; 
+  font-weight: bold; 
+  font-size: 18px; 
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); 
+}
+.logo-text { display: flex; flex-direction: column; }
+.logo-title { color: white; font-weight: bold; font-size: 14px; line-height: 1.2; letter-spacing: 0.025em; }
+.logo-subtitle { color: var(--yellow); font-size: 10px; font-weight: bold; letter-spacing: 0.05em; }
+
+.menu-area { flex: 1; overflow-y: auto; padding: 24px 16px; }
+.menu-label { font-size: 10px; font-weight: bold; letter-spacing: 0.05em; color: var(--text-light); margin-bottom: 16px; padding: 0 8px; text-transform: uppercase; }
+.menu-nav { display: flex; flex-direction: column; gap: 4px; }
+.menu-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; text-decoration: none; color: inherit; font-size: 14px; font-weight: 500; transition: background-color 0.2s; }
+.menu-item:hover { background-color: var(--dark-hover); }
+.menu-item.active { background-color: var(--yellow); color: var(--sidebar-bg); font-weight: bold; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+.menu-item i { width: 20px; text-align: center; }
+.menu-item:not(.active) i { color: var(--text-light); }
+
+.sidebar-footer { padding: 16px; background-color: var(--nav-bg); border-top: 1px solid var(--border-dark); flex-shrink: 0; }
+.warranty-box { display: flex; align-items: center; justify-content: space-between; background-color: var(--dark-hover); border-radius: 8px; padding: 12px; }
+.warranty-text { display: flex; flex-direction: column; }
+.warranty-title { font-size: 10px; color: var(--text-light); font-weight: bold; letter-spacing: 0.05em; }
+.warranty-value { color: var(--yellow); font-size: 12px; font-weight: bold; margin-top: 2px; }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background-color: var(--emerald-text); box-shadow: 0 0 8px rgba(16,185,129,0.8); }
