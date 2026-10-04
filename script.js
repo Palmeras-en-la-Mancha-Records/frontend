@@ -92,16 +92,16 @@ function bindOverviewModal() {
     }
 
     openModalBtn.addEventListener("click", () => {
-        discModal.style.display = "flex";
+        discModal.showModal();
     });
 
     closeModalBtn.addEventListener("click", () => {
-        discModal.style.display = "none";
+        discModal.close();
     });
 
     discModal.addEventListener("click", (event) => {
         if (event.target === discModal) {
-            discModal.style.display = "none";
+            discModal.close();
         }
     });
 
@@ -113,45 +113,56 @@ function bindOverviewModal() {
             artist: document.getElementById("artist").value,
             release_year: document.getElementById("release_year").value,
             genre: document.getElementById("genre").value,
-            cover_image_url: document.getElementById("cover_image_url") ? document.getElementById("cover_image_url").value : '',
-            record_labels: document.getElementById("record_labels.id").value,
+            label_id: document.getElementById("label_id").value,
+            format_id: document.getElementById("format_id").value,
             price: document.getElementById("price").value,
+            stock: document.getElementById("stock").value,
+            cover_image_file: document.getElementById("cover_image_file").files[0] || null
         };
 
         console.log(disc);
 
-        discModal.style.display = "none";
+        discModal.close();
         discForm.reset();
-        
-        // Reset image to placeholder
+
         const coverPreview = document.getElementById("coverPreview");
         const imageUploadBox = document.getElementById("imageUploadBox");
-        if(coverPreview) {
+
+        if (coverPreview) {
             coverPreview.src = "src/img/dvd_placeholder.png";
         }
-        if(imageUploadBox) {
+
+        if (imageUploadBox) {
             imageUploadBox.classList.remove("has-file");
         }
     });
 
-    // Local image preview logic
     const coverInput = document.getElementById("cover_image_file");
     const coverPreview = document.getElementById("coverPreview");
     const imageUploadBox = document.getElementById("imageUploadBox");
-    
+
     if (coverInput && coverPreview) {
-        coverInput.addEventListener("change", function(event) {
+        coverInput.addEventListener("change", (event) => {
             const file = event.target.files[0];
+
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+
+                reader.onload = (e) => {
                     coverPreview.src = e.target.result;
-                    if(imageUploadBox) imageUploadBox.classList.add("has-file");
-                }
+
+                    if (imageUploadBox) {
+                        imageUploadBox.classList.add("has-file");
+                    }
+                };
+
                 reader.readAsDataURL(file);
             } else {
                 coverPreview.src = "src/img/dvd_placeholder.png";
-                if(imageUploadBox) imageUploadBox.classList.remove("has-file");
+
+                if (imageUploadBox) {
+                    imageUploadBox.classList.remove("has-file");
+                }
             }
         });
     }
