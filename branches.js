@@ -12,9 +12,8 @@ function escapeHtml(text) {
 // ---------- LISTAR ----------
 async function loadBranches() {
   try {
-    const response = await fetch(BRANCHES_API_URL);
-    if (!response.ok) throw new Error("Error " + response.status);
-    branchesData = await response.json();
+    const response = await axios.get(BRANCHES_API_URL);
+    branchesData = response.data;
     renderBranches();
   } catch (error) {
     console.error("Error cargando filiales:", error);
@@ -102,12 +101,11 @@ async function saveBranch(event) {
   saveBtn.disabled = true; // evita duplicados por doble clic
 
   try {
-    const response = await fetch(url, {
+    await axios({
+      url: url,
       method: method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+      data: payload,
     });
-    if (!response.ok) throw new Error("Error " + response.status);
 
     closeBranchModal();
     await loadBranches();
@@ -127,10 +125,7 @@ async function deleteBranch(id) {
   if (!confirm(`¿Seguro que quieres eliminar "${name}"?`)) return;
 
   try {
-    const response = await fetch(`${BRANCHES_API_URL}${id}`, {
-      method: "DELETE",
-    });
-    if (!response.ok) throw new Error("Error " + response.status);
+    await axios.delete(`${BRANCHES_API_URL}${id}`);
     await loadBranches();
   } catch (error) {
     console.error("Error eliminando filial:", error);
