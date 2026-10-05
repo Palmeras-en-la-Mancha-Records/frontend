@@ -28,6 +28,8 @@ function loadView(viewName) {
             // --- Initialize View Features ---
             if (viewName === 'overview') {
                 bindOverviewModal();
+            } else if (viewName === 'branches') {
+                initBranches(); // defined in branches.js
             }
             // ---------------------------------------------
         })
@@ -59,6 +61,8 @@ function initRouter() {
                 loadView('overview');
             } else if (text.includes('Catálogo Físico Master')) {
                 loadView('catalog');
+            } else if (text.includes('Filiales')) {
+                loadView('branches');
             } else {
                 // Under construction view for other links
                 document.getElementById('main-view').innerHTML = `
@@ -67,7 +71,7 @@ function initRouter() {
                         <h3 class="empty-state-title">Vista en construcción</h3>
                         <p class="empty-state-desc">La sección "${text}" estará disponible próximamente.</p>
                     </div>`;
-      }
+            }
         });
     });
     
