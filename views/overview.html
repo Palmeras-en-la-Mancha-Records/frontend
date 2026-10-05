@@ -1,4 +1,4 @@
-<div class="page-header">
+<header class="page-header">
     <div>
         <div class="breadcrumbs">
             <span class="bc-link vg-badge">PANEL CULTURAL</span>
@@ -17,42 +17,40 @@
             + Añadir Disco
         </button>
     </div>
-</div>
+</header>
 
-<div class="vg-grid">
+<section class="vg-grid">
     <!-- Left Column -->
-    <div class="vg-col">
-        <!-- Latest Records -->
-        <div class="filter-card vg-card">
-            <div class="grid-header">
+    <section class="vg-col">
+        <section class="filter-card vg-card">
+            <header class="grid-header">
                 <div class="grid-title-group vg-section-header">
                     <h2 class="grid-title">Últimos Discos Añadidos</h2>
                     <p class="page-desc vg-section-desc">Nuevas incorporaciones al catálogo central y tiendas asociadas</p>
                 </div>
                 <a href="#" class="vg-link">Ver catálogo<br>completo <i class="material-symbols-rounded">arrow_forward</i></a>
-            </div>
+            </header>
 
             <!-- Empty State for Backend -->
-            <div class="empty-state vg-empty">
+            <section class="empty-state vg-empty">
                 <i class="material-symbols-rounded empty-state-icon vg-icon-32">sync</i>
                 <h3 class="empty-state-title vg-title-16">Esperando datos</h3>
                 <p class="empty-state-desc">Los últimos discos se cargarán desde el backend.</p>
-            </div>
-        </div>
+            </section>
+        </section>
 
         <!-- Cultural Spotlight (Backend Placeholder) -->
-        <div class="filter-card vg-empty-cultural">
+        <section class="filter-card vg-empty-cultural">
             <i class="material-symbols-rounded empty-state-icon vg-icon-32">stars</i>
             <h3 class="empty-state-title vg-title-16">Ficha Cultural</h3>
             <p class="empty-state-desc vg-text-center">El artista destacado se sincronizará con el backend.</p>
-        </div>
-    </div>
+        </section>
+    </section>
 
     <!-- Right Column -->
-    <div class="vg-col">
-        <!-- Stores Summary -->
-        <div class="filter-card vg-card-full">
-            <div class="grid-header">
+    <section class="vg-col">
+        <section class="filter-card vg-card-full">
+            <header class="grid-header">
                 <div class="grid-title-group vg-section-header">
                     <div class="vg-sedes-header">
                         <div class="vg-sedes-marker"></div>
@@ -61,21 +59,21 @@
                     <p class="page-desc vg-sedes-desc">Estado y actividad en tiendas físicas</p>
                 </div>
                 <a href="#" class="vg-link">Gestionar <i class="material-symbols-rounded">arrow_forward</i></a>
-            </div>
+            </header>
 
             <!-- Empty State for Backend -->
-            <div class="empty-state vg-empty-full">
+            <section class="empty-state vg-empty-full">
                 <i class="material-symbols-rounded empty-state-icon vg-icon-32">storefront</i>
                 <h3 class="empty-state-title vg-title-16">Esperando datos</h3>
                 <p class="empty-state-desc">El resumen de sedes se sincronizará con el backend.</p>
-            </div>
-        </div>
-    </div>
-</div>
+            </section>
+        </section>
+    </section>
+</section>
 
 <!-- Modal -->
 <dialog id="discModal" class="modal" aria-labelledby="modalTitle">
-    <div class="modal-content modal-large">
+    <section class="modal-content modal-large">
 
         <button
             id="closeModal"
@@ -214,5 +212,5 @@
             </footer>
 
         </form>
-    </div>
+    </section>
 </dialog>
