@@ -84,7 +84,9 @@ function initRouter() {
     loadView('overview');
 }
 
-// Add album modal
+// Add or edit album modal
+let editingAlbumId = null;
+
 function bindOverviewModal() {
     const openModalBtn = document.getElementById("openModal");
     const closeModalBtn = document.getElementById("closeModal");
@@ -95,67 +97,124 @@ function bindOverviewModal() {
         return;
     }
 
+    const modalTitle = document.getElementById("modalTitle");
+    const submitButton = discForm.querySelector('button[type="submit"]');
+
+    // Open modal in add or edit mode
+    window.openAlbumModal = function (album = null) {
+        editingAlbumId = album ? album.id : null;
+
+        discForm.reset();
+
+        const coverPreview = document.getElementById("coverPreview");
+        const imageUploadBox = document.getElementById("imageUploadBox");
+        const coverInput = document.getElementById("cover_image_file");
+
+        if (album) {
+
+            modalTitle.textContent = "Editar disco";
+            submitButton.textContent = "Guardar cambios";
+
+            document.getElementById("title").value = album.title ?? "";
+            document.getElementById("artist").value = album.artist ?? "";
+            document.getElementById("release_year").value = album.release_year ?? "";
+            document.getElementById("genre").value = album.genre ?? "";
+            document.getElementById("label_id").value = album.label_id ?? "";
+            document.getElementById("format_id").value = album.format_id ?? "";
+            document.getElementById("price").value = album.price ?? "";
+            document.getElementById("stock").value = album.stock ?? "";
+
+            
+            if (album.cover_image_url) {
+                coverPreview.src = album.cover_image_url;
+                imageUploadBox.classList.add("has-file");
+            } else {
+                coverPreview.src = "src/img/dvd_placeholder.png";
+                imageUploadBox.classList.remove("has-file");
+            }
+        } else {
+            
+            modalTitle.textContent = "Añadir disco";
+            submitButton.textContent = "Añadir disco";
+
+            coverPreview.src = "src/img/dvd_placeholder.png";
+            imageUploadBox.classList.remove("has-file");
+        }
+
+        
+
+        discModal.showModal();
+    };
+
+    
     openModalBtn.addEventListener("click", () => {
-        discModal.style.display = "flex";
+        window.openAlbumModal();
     });
 
+    
     closeModalBtn.addEventListener("click", () => {
-        discModal.style.display = "none";
+        discModal.close();
     });
 
+    
     discModal.addEventListener("click", (event) => {
         if (event.target === discModal) {
-            discModal.style.display = "none";
+            discModal.close();
         }
     });
 
+    
     discForm.addEventListener("submit", (event) => {
         event.preventDefault();
 
         const disc = {
+            id: editingAlbumId,
             title: document.getElementById("title").value,
             artist: document.getElementById("artist").value,
             release_year: document.getElementById("release_year").value,
             genre: document.getElementById("genre").value,
-            cover_image_url: document.getElementById("cover_image_url") ? document.getElementById("cover_image_url").value : '',
-            record_labels: document.getElementById("record_labels.id").value,
+            label_id: document.getElementById("label_id").value,
+            format_id: document.getElementById("format_id").value,
             price: document.getElementById("price").value,
+            stock: document.getElementById("stock").value,
+            cover_image_file: document.getElementById("cover_image_file").files[0] || null
         };
 
         console.log(disc);
 
-        discModal.style.display = "none";
+        discModal.close();
         discForm.reset();
-        
-        // Reset image to placeholder
+
         const coverPreview = document.getElementById("coverPreview");
         const imageUploadBox = document.getElementById("imageUploadBox");
-        if(coverPreview) {
-            coverPreview.src = "src/img/dvd_placeholder.png";
-        }
-        if(imageUploadBox) {
-            imageUploadBox.classList.remove("has-file");
-        }
+
+        coverPreview.src = "src/img/dvd_placeholder.png";
+        imageUploadBox.classList.remove("has-file");
+
+        editingAlbumId = null;
     });
 
-    // Local image preview logic
+    // Local image preview
     const coverInput = document.getElementById("cover_image_file");
     const coverPreview = document.getElementById("coverPreview");
     const imageUploadBox = document.getElementById("imageUploadBox");
-    
+
     if (coverInput && coverPreview) {
-        coverInput.addEventListener("change", function(event) {
+        coverInput.addEventListener("change", (event) => {
             const file = event.target.files[0];
+
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+
+                reader.onload = (e) => {
                     coverPreview.src = e.target.result;
-                    if(imageUploadBox) imageUploadBox.classList.add("has-file");
-                }
+                    imageUploadBox.classList.add("has-file");
+                };
+
                 reader.readAsDataURL(file);
             } else {
                 coverPreview.src = "src/img/dvd_placeholder.png";
-                if(imageUploadBox) imageUploadBox.classList.remove("has-file");
+                imageUploadBox.classList.remove("has-file");
             }
         });
     }
