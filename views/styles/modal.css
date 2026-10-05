@@ -80,7 +80,7 @@
     flex-direction: column;
 }
 
-/* Image Upload */
+
 .image-upload-box {
     flex: 1;
     border: 2px dashed var(--border);

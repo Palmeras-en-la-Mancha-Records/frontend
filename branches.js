@@ -9,7 +9,7 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-// ---------- LISTAR ----------
+// LIST
 async function loadBranches() {
   try {
     const response = await fetch(BRANCHES_API_URL);
@@ -99,7 +99,7 @@ async function saveBranch(event) {
   const method = id ? "PUT" : "POST";
 
   const saveBtn = document.getElementById("branch-save-btn");
-  saveBtn.disabled = true; // evita duplicados por doble clic
+  saveBtn.disabled = true;
 
   try {
     const response = await fetch(url, {
@@ -145,7 +145,7 @@ function initBranches() {
   const grid = document.getElementById("branches-grid");
   const modal = document.getElementById("branch-modal");
 
-  // Botones Editar / Eliminar de cada tarjeta
+  
   grid.addEventListener("click", (e) => {
     const card = e.target.closest(".branch-card");
     if (!card) return;
@@ -167,7 +167,7 @@ function initBranches() {
     .addEventListener("click", closeBranchModal);
   document.getElementById("branch-form").addEventListener("submit", saveBranch);
 
-  // Close when clicking the dark background
+  
   modal.addEventListener("click", (e) => {
     if (e.target === modal) closeBranchModal();
   });
