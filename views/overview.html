@@ -1,0 +1,127 @@
+<div class="page-header">
+    <div>
+        <div class="breadcrumbs">
+            <span class="bc-link vg-badge">PANEL CULTURAL</span>
+            <span class="bc-current vg-ml-8">Garantía de stock y venta exclusiva</span>
+        </div>
+        <h1 class="page-title">Visión General</h1>
+        <p class="page-desc">Resumen operativo y comercial de Palmeras en la Mancha Records</p>
+    </div>
+    <div class="header-actions">
+        <button class="btn btn-outline">
+            <i class="material-symbols-rounded">storefront</i>
+            + Nueva Filial
+        </button>
+        <button class="btn btn-yellow" id="openModal">
+            <i class="material-symbols-rounded">add_circle</i>
+            + Añadir Disco
+        </button>
+    </div>
+</div>
+
+<div class="vg-grid">
+    <!-- Left Column -->
+    <div class="vg-col">
+        <!-- Latest Records -->
+        <div class="filter-card vg-card">
+            <div class="grid-header">
+                <div class="grid-title-group vg-section-header">
+                    <h2 class="grid-title">Últimos Discos Añadidos</h2>
+                    <p class="page-desc vg-section-desc">Nuevas incorporaciones al catálogo central y tiendas asociadas</p>
+                </div>
+                <a href="#" class="vg-link">Ver catálogo<br>completo <i class="material-symbols-rounded">arrow_forward</i></a>
+            </div>
+
+            <!-- Empty State for Backend -->
+            <div class="empty-state vg-empty">
+                <i class="material-symbols-rounded empty-state-icon vg-icon-32">sync</i>
+                <h3 class="empty-state-title vg-title-16">Esperando datos</h3>
+                <p class="empty-state-desc">Los últimos discos se cargarán desde el backend.</p>
+            </div>
+        </div>
+
+        <!-- Cultural Spotlight (Backend Placeholder) -->
+        <div class="filter-card vg-empty-cultural">
+            <i class="material-symbols-rounded empty-state-icon vg-icon-32">stars</i>
+            <h3 class="empty-state-title vg-title-16">Ficha Cultural</h3>
+            <p class="empty-state-desc vg-text-center">El artista destacado se sincronizará con el backend.</p>
+        </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="vg-col">
+        <!-- Stores Summary -->
+        <div class="filter-card vg-card-full">
+            <div class="grid-header">
+                <div class="grid-title-group vg-section-header">
+                    <div class="vg-sedes-header">
+                        <div class="vg-sedes-marker"></div>
+                        <h2 class="grid-title">Resumen de Sedes</h2>
+                    </div>
+                    <p class="page-desc vg-sedes-desc">Estado y actividad en tiendas físicas</p>
+                </div>
+                <a href="#" class="vg-link">Gestionar <i class="material-symbols-rounded">arrow_forward</i></a>
+            </div>
+
+            <!-- Empty State for Backend -->
+            <div class="empty-state vg-empty-full">
+                <i class="material-symbols-rounded empty-state-icon vg-icon-32">storefront</i>
+                <h3 class="empty-state-title vg-title-16">Esperando datos</h3>
+                <p class="empty-state-desc">El resumen de sedes se sincronizará con el backend.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="discModal" class="modal">
+    <div class="modal-content modal-large">
+        <button id="closeModal" class="close">×</button>
+
+        <h2>Añadir disco</h2>
+
+        <form id="discForm">
+            <div class="modal-grid">
+                <!-- Left Column: Data -->
+                <div class="modal-col">
+                    <label for="title">Título</label>
+                    <input type="text" id="title" required>
+
+                    <label for="artist">Artista</label>
+                    <input type="text" id="artist" required>
+
+                    <label for="release_year">Año</label>
+                    <input type="number" id="release_year" required>
+
+                    <label for="genre">Género</label>
+                    <input type="text" id="genre" required>
+
+                    <label for="record_labels">Discográfica</label>
+                    <input type="text" id="record_labels.id" required>
+
+                    <label for="price">Precio</label>
+                    <input type="number" id="price" step="0.01" required>
+                </div>
+
+                <!-- Right Column: Image -->
+                <div class="modal-col">
+                    <label>Portada del Disco</label>
+                    <div class="image-upload-box" id="imageUploadBox">
+                        <input type="file" id="cover_image_file" accept="image/*">
+                        <i class="material-symbols-rounded upload-icon">add_photo_alternate</i>
+                        <p>Haz clic para cambiar<br>la imagen</p>
+                        <img id="coverPreview" src="src/img/dvd_placeholder.png" alt="Previsualización">
+                    </div>
+                    
+                    <!-- Original URL field fallback (optional) -->
+                    <label for="cover_image_url" style="margin-top: 16px;">O URL de la imagen</label>
+                    <input type="url" id="cover_image_url" placeholder="https://...">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn-submit">Añadir disco</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -60,7 +60,7 @@ function initRouter() {
             if (text.includes('Visión General')) {
                 loadView('overview');
             } else if (text.includes('Catálogo Físico Master')) {
-                loadView('catalog');
+                loadView('catalogue');
             } else if (text.includes('Filiales')) {
                 loadView('branches');
             } else {
