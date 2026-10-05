@@ -1,7 +1,9 @@
+// Configuration
 const BRANCHES_API_URL = "http://127.0.0.1:8000/branches/";
 
 let branchesData = [];
 
+// Utilities
 // Prevents text containing special characters (< > &) from breaking the HTML
 function escapeHtml(text) {
   const div = document.createElement("div");
@@ -9,7 +11,7 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-// LIST
+// Read Operations
 async function loadBranches() {
   try {
     const response = await axios.get(BRANCHES_API_URL);
@@ -23,6 +25,7 @@ async function loadBranches() {
   }
 }
 
+// Render Operations
 function renderBranches() {
   const grid = document.getElementById("branches-grid");
   const empty = document.getElementById("branches-empty");
@@ -59,7 +62,7 @@ function renderBranches() {
   empty.style.display = branchesData.length ? "none" : "";
 }
 
-// ---------- CREATE / EDIT WINDOW ----------
+// Modal Operations
 function openBranchModal(branch = null) {
   document.getElementById("branch-modal-title").textContent = branch
     ? "Editar filial"
@@ -82,7 +85,7 @@ function closeBranchModal() {
   document.getElementById("branch-modal").classList.remove("open");
 }
 
-// ---------- CREATE / EDIT  ----------
+// Write Operations
 async function saveBranch(event) {
   event.preventDefault();
 
@@ -98,7 +101,7 @@ async function saveBranch(event) {
   const method = id ? "PUT" : "POST";
 
   const saveBtn = document.getElementById("branch-save-btn");
-  saveBtn.disabled = true;
+  saveBtn.disabled = true; // Prevent duplicate requests on double click
 
   try {
     await axios({
@@ -117,7 +120,7 @@ async function saveBranch(event) {
   }
 }
 
-// ---------- DELETE ----------
+// Delete Operations
 async function deleteBranch(id) {
   const branch = branchesData.find((b) => b.id === id);
   const name = branch ? branch.name : "esta filial";
@@ -135,12 +138,12 @@ async function deleteBranch(id) {
   }
 }
 
-// ---------- STARTUP (script.js calls this when the view loads) ----------
+// Initialization
 function initBranches() {
   const grid = document.getElementById("branches-grid");
   const modal = document.getElementById("branch-modal");
 
-  
+  // Handle edit and delete buttons on each card
   grid.addEventListener("click", (e) => {
     const card = e.target.closest(".branch-card");
     if (!card) return;
@@ -162,7 +165,7 @@ function initBranches() {
     .addEventListener("click", closeBranchModal);
   document.getElementById("branch-form").addEventListener("submit", saveBranch);
 
-  
+  // Close when clicking the modal background
   modal.addEventListener("click", (e) => {
     if (e.target === modal) closeBranchModal();
   });

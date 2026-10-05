@@ -1,37 +1,34 @@
-// Fetch and inject Header Component
-fetch("components/header_component.html")
-  .then((response) => response.text())
-  .then((data) => {
-    document.getElementById("header-container").outerHTML = data;
+// Component Injection
+// Inject Header Component
+axios.get("components/header_component.html")
+  .then((response) => {
+    document.getElementById("header-container").outerHTML = response.data;
   })
   .catch((error) => console.error("Error loading header component:", error));
 
-// Fetch and inject Sidebar Component
-fetch('components/sidebar_component.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('sidebar-container').outerHTML = data;
-        initRouter(); // Initialize router once sidebar is loaded
+// Inject Sidebar Component
+axios.get('components/sidebar_component.html')
+    .then(response => {
+        document.getElementById('sidebar-container').outerHTML = response.data;
+        initRouter();
     })
     .catch(error => console.error('Error loading sidebar component:', error));
 
-// Routing logic (SPA)
+// Router & View Management
 function loadView(viewName) {
     const mainView = document.getElementById('main-view');
     mainView.innerHTML = '<div style="display:flex; justify-content:center; padding: 40px;"><i class="material-symbols-rounded" style="font-size: 48px; opacity: 0.5;">sync</i></div>';
     
-    fetch(`views/${viewName}.html`)
-        .then(response => response.text())
-        .then(data => {
-            mainView.innerHTML = data;
+    axios.get(`views/${viewName}.html`)
+        .then(response => {
+            mainView.innerHTML = response.data;
 
-            // --- Initialize View Features ---
+            // Initialize view-specific features
             if (viewName === 'overview') {
                 bindOverviewModal();
             } else if (viewName === 'branches') {
-                initBranches(); // defined in branches.js
+                initBranches();
             }
-            // ---------------------------------------------
         })
         .catch(error => {
             console.error('Error loading view:', error);
@@ -50,7 +47,7 @@ function initRouter() {
         item.addEventListener('click', (e) => {
             e.preventDefault();
             
-            // Update active state
+            // Update active menu state
             menuItems.forEach(i => i.classList.remove('active'));
             e.currentTarget.classList.add('active');
             
@@ -64,7 +61,7 @@ function initRouter() {
             } else if (text.includes('Filiales')) {
                 loadView('branches');
             } else {
-                // Under construction view for other links
+                // Fallback view for under construction sections
                 document.getElementById('main-view').innerHTML = `
                     <div class="empty-state">
                         <i class="material-symbols-rounded empty-state-icon">construction</i>
@@ -75,7 +72,7 @@ function initRouter() {
         });
     });
     
-    // Load the default view upon entering the app (Overview)
+    // Default initial view
     const initialItem = Array.from(menuItems).find(i => i.innerText.includes('Visión General'));
     if (initialItem) {
         menuItems.forEach(i => i.classList.remove('active'));
@@ -84,7 +81,7 @@ function initRouter() {
     loadView('overview');
 }
 
-// Add or edit album modal
+// Album Modal & Form Management
 let editingAlbumId = null;
 
 function bindOverviewModal() {
@@ -100,7 +97,7 @@ function bindOverviewModal() {
     const modalTitle = document.getElementById("modalTitle");
     const submitButton = discForm.querySelector('button[type="submit"]');
 
-    // Open modal in add or edit mode
+    // Open modal in create or edit mode
     window.openAlbumModal = function (album = null) {
         editingAlbumId = album ? album.id : null;
 
@@ -108,10 +105,8 @@ function bindOverviewModal() {
 
         const coverPreview = document.getElementById("coverPreview");
         const imageUploadBox = document.getElementById("imageUploadBox");
-        const coverInput = document.getElementById("cover_image_file");
 
         if (album) {
-
             modalTitle.textContent = "Editar disco";
             submitButton.textContent = "Guardar cambios";
 
@@ -124,7 +119,6 @@ function bindOverviewModal() {
             document.getElementById("price").value = album.price ?? "";
             document.getElementById("stock").value = album.stock ?? "";
 
-            
             if (album.cover_image_url) {
                 coverPreview.src = album.cover_image_url;
                 imageUploadBox.classList.add("has-file");
@@ -133,7 +127,6 @@ function bindOverviewModal() {
                 imageUploadBox.classList.remove("has-file");
             }
         } else {
-            
             modalTitle.textContent = "Añadir disco";
             submitButton.textContent = "Añadir disco";
 
@@ -141,29 +134,23 @@ function bindOverviewModal() {
             imageUploadBox.classList.remove("has-file");
         }
 
-        
-
         discModal.showModal();
     };
 
-    
     openModalBtn.addEventListener("click", () => {
         window.openAlbumModal();
     });
 
-    
     closeModalBtn.addEventListener("click", () => {
         discModal.close();
     });
 
-    
     discModal.addEventListener("click", (event) => {
         if (event.target === discModal) {
             discModal.close();
         }
     });
 
-    
     discForm.addEventListener("submit", (event) => {
         event.preventDefault();
 
@@ -194,7 +181,7 @@ function bindOverviewModal() {
         editingAlbumId = null;
     });
 
-    // Local image preview
+    // Image Preview Handler
     const coverInput = document.getElementById("cover_image_file");
     const coverPreview = document.getElementById("coverPreview");
     const imageUploadBox = document.getElementById("imageUploadBox");
