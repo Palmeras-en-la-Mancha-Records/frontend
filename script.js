@@ -1,3 +1,14 @@
+// Configuration
+const DISCS_API_URL = "http://127.0.0.1:8000/discs/";
+const FORMATS_API_URL = "http://127.0.0.1:8000/formats/";
+
+// Utilities
+function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text ?? "";
+    return div.innerHTML;
+}
+
 // Component Injection
 // Inject Header Component
 axios.get("components/header_component.html")
@@ -26,6 +37,9 @@ function loadView(viewName) {
             // Initialize view-specific features
             if (viewName === 'overview') {
                 bindOverviewModal();
+                loadOverviewDiscs();
+            } else if (viewName === 'catalog') {
+                loadCatalogDiscs();
             } else if (viewName === 'branches') {
                 initBranches();
             }
@@ -84,6 +98,49 @@ function initRouter() {
 // Album Modal & Form Management
 let editingAlbumId = null;
 
+async function loadFormatOptions() {
+    const formatSelect = document.getElementById("format_id");
+    if (!formatSelect) return;
+
+    try {
+        const response = await axios.get(FORMATS_API_URL);
+        const formats = response.data;
+        formatSelect.innerHTML = '<option value="">Selecciona un formato</option>';
+        formats.forEach((format) => {
+            const opt = document.createElement("option");
+            opt.value = format.id;
+            opt.textContent = format.name;
+            formatSelect.appendChild(opt);
+        });
+    } catch (error) {
+        console.error("Error loading formats:", error);
+    }
+}
+
+function loadLabelOptions() {
+    const labelSelect = document.getElementById("label_id");
+    if (!labelSelect) return;
+
+    const defaultLabels = [
+        "Warner Music Spain",
+        "Sony Music Entertainment",
+        "Universal Music",
+        "Columbia Records",
+        "Mushroom Pillow",
+        "Elefant Records",
+        "Sub Pop",
+        "Autoeditado"
+    ];
+
+    labelSelect.innerHTML = '<option value="">Selecciona una discográfica</option>';
+    defaultLabels.forEach((label) => {
+        const opt = document.createElement("option");
+        opt.value = label;
+        opt.textContent = label;
+        labelSelect.appendChild(opt);
+    });
+}
+
 function bindOverviewModal() {
     const openModalBtn = document.getElementById("openModal");
     const closeModalBtn = document.getElementById("closeModal");
@@ -94,17 +151,23 @@ function bindOverviewModal() {
         return;
     }
 
+    // Populate dropdown options
+    loadFormatOptions();
+    loadLabelOptions();
+
     const modalTitle = document.getElementById("modalTitle");
     const submitButton = discForm.querySelector('button[type="submit"]');
+    const coverPreview = document.getElementById("coverPreview");
+    const imageUploadBox = document.getElementById("imageUploadBox");
 
     // Open modal in create or edit mode
-    window.openAlbumModal = function (album = null) {
+    window.openAlbumModal = async function (album = null) {
         editingAlbumId = album ? album.id : null;
 
-        discForm.reset();
+        await loadFormatOptions();
+        loadLabelOptions();
 
-        const coverPreview = document.getElementById("coverPreview");
-        const imageUploadBox = document.getElementById("imageUploadBox");
+        discForm.reset();
 
         if (album) {
             modalTitle.textContent = "Editar disco";
@@ -114,7 +177,7 @@ function bindOverviewModal() {
             document.getElementById("artist").value = album.artist ?? "";
             document.getElementById("release_year").value = album.release_year ?? "";
             document.getElementById("genre").value = album.genre ?? "";
-            document.getElementById("label_id").value = album.label_id ?? "";
+            document.getElementById("label_id").value = album.record_label ?? album.label_id ?? "";
             document.getElementById("format_id").value = album.format_id ?? "";
             document.getElementById("price").value = album.price ?? "";
             document.getElementById("stock").value = album.stock ?? "";
@@ -151,41 +214,64 @@ function bindOverviewModal() {
         }
     });
 
-    discForm.addEventListener("submit", (event) => {
+    discForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
-        const disc = {
-            id: editingAlbumId,
-            title: document.getElementById("title").value,
-            artist: document.getElementById("artist").value,
-            release_year: document.getElementById("release_year").value,
-            genre: document.getElementById("genre").value,
-            label_id: document.getElementById("label_id").value,
-            format_id: document.getElementById("format_id").value,
-            price: document.getElementById("price").value,
-            stock: document.getElementById("stock").value,
-            cover_image_file: document.getElementById("cover_image_file").files[0] || null
+        const title = document.getElementById("title").value.trim();
+        const artist = document.getElementById("artist").value.trim();
+        const releaseYearValue = document.getElementById("release_year").value;
+        const release_year = releaseYearValue ? parseInt(releaseYearValue, 10) : null;
+        const genre = document.getElementById("genre").value.trim() || null;
+        const record_label = document.getElementById("label_id").value.trim() || null;
+        const formatIdValue = document.getElementById("format_id").value;
+        const format_id = formatIdValue ? parseInt(formatIdValue, 10) : null;
+        const price = parseFloat(document.getElementById("price").value) || 0.0;
+        const stock = parseInt(document.getElementById("stock").value, 10) || 0;
+
+        let cover_image_url = null;
+        if (coverPreview && coverPreview.src && !coverPreview.src.includes("dvd_placeholder.png")) {
+            cover_image_url = coverPreview.src;
+        }
+
+        const payload = {
+            title,
+            artist,
+            release_year,
+            genre,
+            record_label,
+            format_id,
+            price,
+            stock,
+            cover_image_url
         };
 
-        console.log(disc);
+        try {
+            if (editingAlbumId) {
+                await axios.put(`${DISCS_API_URL}${editingAlbumId}`, payload);
+            } else {
+                await axios.post(DISCS_API_URL, payload);
+            }
 
-        discModal.close();
-        discForm.reset();
+            discModal.close();
+            discForm.reset();
 
-        const coverPreview = document.getElementById("coverPreview");
-        const imageUploadBox = document.getElementById("imageUploadBox");
+            coverPreview.src = "src/img/dvd_placeholder.png";
+            imageUploadBox.classList.remove("has-file");
+            editingAlbumId = null;
 
-        coverPreview.src = "src/img/dvd_placeholder.png";
-        imageUploadBox.classList.remove("has-file");
-
-        editingAlbumId = null;
+            loadOverviewDiscs();
+        } catch (error) {
+            console.error("Error saving disc:", error);
+            const detail = error.response?.data?.detail;
+            const message = Array.isArray(detail)
+                ? detail.map((d) => d.msg).join(", ")
+                : (detail || error.message);
+            alert(`Error al guardar el disco: ${message}`);
+        }
     });
 
     // Image Preview Handler
     const coverInput = document.getElementById("cover_image_file");
-    const coverPreview = document.getElementById("coverPreview");
-    const imageUploadBox = document.getElementById("imageUploadBox");
-
     if (coverInput && coverPreview) {
         coverInput.addEventListener("change", (event) => {
             const file = event.target.files[0];
@@ -205,4 +291,216 @@ function bindOverviewModal() {
             }
         });
     }
+
+    if (imageUploadBox && coverInput) {
+        imageUploadBox.addEventListener("click", (event) => {
+            if (event.target !== coverInput) {
+                coverInput.click();
+            }
+        });
+    }
+
+    // Overview Link to Catalog
+    const catalogLink = document.querySelector(".vg-link");
+    if (catalogLink && catalogLink.innerText.includes("Ver catálogo")) {
+        catalogLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            const catalogMenuItem = Array.from(document.querySelectorAll('.menu-item')).find(i => i.innerText.includes('Catálogo Físico Master'));
+            if (catalogMenuItem) {
+                catalogMenuItem.click();
+            } else {
+                loadView('catalog');
+            }
+        });
+    }
 }
+
+// Overview Discs Read & Render Operations
+async function loadOverviewDiscs() {
+    const card = document.querySelector(".vg-col .filter-card.vg-card");
+    if (!card) return;
+
+    const emptyState = card.querySelector(".vg-empty");
+    let listContainer = document.getElementById("overview-discs-list");
+
+    if (!listContainer && emptyState) {
+        listContainer = document.createElement("div");
+        listContainer.id = "overview-discs-list";
+        emptyState.parentNode.insertBefore(listContainer, emptyState.nextSibling);
+    }
+
+    try {
+        const response = await axios.get(DISCS_API_URL);
+        const discs = response.data;
+
+        if (!discs || discs.length === 0) {
+            if (emptyState) emptyState.style.display = "block";
+            if (listContainer) listContainer.style.display = "none";
+            return;
+        }
+
+        if (emptyState) emptyState.style.display = "none";
+        if (listContainer) {
+            listContainer.style.display = "flex";
+            listContainer.style.flexDirection = "column";
+            listContainer.style.gap = "12px";
+            listContainer.style.marginTop = "16px";
+
+            listContainer.innerHTML = discs.slice(0, 5).map((disc) => `
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border: 1px solid var(--border); border-radius: 12px; background-color: #ffffff; gap: 16px;">
+                    <div style="display: flex; align-items: center; gap: 14px; min-width: 0;">
+                        <img src="${disc.cover_image_url || 'src/img/dvd_placeholder.png'}" alt="${escapeHtml(disc.title)}" style="width: 48px; height: 48px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); background-color: #f9fafb; flex-shrink: 0;">
+                        <div style="min-width: 0;">
+                            <div style="font-weight: 700; font-size: 14px; color: var(--text-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${escapeHtml(disc.title)}</div>
+                            <div style="font-size: 12px; color: var(--text-gray); margin-top: 2px;">
+                                ${escapeHtml(disc.artist)} ${disc.release_year ? '· ' + disc.release_year : ''} ${disc.genre ? '· <span style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-size: 11px;">' + escapeHtml(disc.genre) + '</span>' : ''}
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px; flex-shrink: 0;">
+                        <div style="text-align: right;">
+                            <div style="font-weight: 700; font-size: 14px; color: var(--text-dark);">${Number(disc.price).toFixed(2)} €</div>
+                            <div style="font-size: 11px; color: ${disc.stock > 0 ? 'var(--emerald-text)' : 'var(--red-text)'}; font-weight: 600;">
+                                ${disc.stock > 0 ? disc.stock + ' uds' : 'Sin stock'}
+                            </div>
+                        </div>
+                        <button class="btn btn-outline" style="padding: 6px 10px; font-size: 12px;" onclick="window.editDiscById(${disc.id})" title="Editar disco">
+                            <i class="material-symbols-rounded" style="font-size: 16px;">edit</i>
+                        </button>
+                        <button class="btn btn-outline" style="padding: 6px 10px; font-size: 12px; color: var(--red-text);" onclick="window.deleteDiscById(${disc.id})" title="Eliminar disco">
+                            <i class="material-symbols-rounded" style="font-size: 16px;">delete</i>
+                        </button>
+                    </div>
+                </div>
+            `).join("");
+        }
+    } catch (error) {
+        console.error("Error loading overview discs:", error);
+    }
+}
+
+// Global Operations for Overview Discs
+window.editDiscById = async function (discId) {
+    try {
+        const response = await axios.get(`${DISCS_API_URL}${discId}`);
+        window.openAlbumModal(response.data);
+    } catch (error) {
+        console.error("Error fetching disc for editing:", error);
+        alert("No se pudo obtener el disco para editar.");
+    }
+};
+
+window.deleteDiscById = async function (discId) {
+    if (!confirm("¿Seguro que deseas eliminar este disco?")) return;
+    try {
+        await axios.delete(`${DISCS_API_URL}${discId}`);
+        loadOverviewDiscs();
+    } catch (error) {
+        console.error("Error deleting disc:", error);
+        alert("Error al eliminar el disco.");
+    }
+};
+
+// Catalog Discs Read & Render Operations
+async function loadCatalogDiscs() {
+    const catalogGrid = document.getElementById("catalog-grid");
+    const emptyState = document.querySelector("#main-view .empty-state");
+    const badge = document.querySelector(".badge-dark");
+    if (!catalogGrid) return;
+
+    try {
+        const response = await axios.get(DISCS_API_URL);
+        const discs = response.data;
+
+        if (badge) {
+            badge.textContent = `${discs.length} ediciones activas`;
+        }
+
+        if (!discs || discs.length === 0) {
+            if (emptyState) emptyState.style.display = "block";
+            catalogGrid.innerHTML = "";
+            return;
+        }
+
+        if (emptyState) emptyState.style.display = "none";
+
+        catalogGrid.innerHTML = discs.map((disc) => `
+            <div class="card" data-id="${disc.id}">
+                <div class="card-image-wrap">
+                    <img class="card-image" src="${disc.cover_image_url || 'src/img/dvd_placeholder.png'}" alt="${escapeHtml(disc.title)}">
+                    <span class="card-id">#${disc.id}</span>
+                    <span class="card-tag-bottom-right">${disc.format_id ? 'Formato #' + disc.format_id : 'Físico'}</span>
+                </div>
+                <div class="card-tags">
+                    ${disc.genre ? `<span class="c-tag c-tag-blue">${escapeHtml(disc.genre)}</span>` : ''}
+                    ${disc.release_year ? `<span class="c-tag c-tag-outline">${disc.release_year}</span>` : ''}
+                </div>
+                <h3 class="card-title">${escapeHtml(disc.title)}</h3>
+                <p class="card-subtitle">${escapeHtml(disc.artist)}</p>
+                <div class="disco-box">
+                    <div class="disco-left">
+                        <i class="material-symbols-rounded">domain</i>
+                        <span class="disco-label">${escapeHtml(disc.record_label || 'Sello independiente')}</span>
+                    </div>
+                </div>
+                <div class="stock-section">
+                    <div class="stock-header">
+                        <span>Disponibilidad</span>
+                        <span>Precio</span>
+                    </div>
+                    <div class="stock-item">
+                        <span class="s-stock ${disc.stock > 0 ? 'stock-green' : 'stock-red'}">${disc.stock ?? 0} unidades</span>
+                        <div class="stock-price-col">
+                            <span class="s-price">${Number(disc.price).toFixed(2)} €</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <button class="card-btn btn-edit" onclick="window.editDiscFromCatalog(${disc.id})">
+                        <i class="material-symbols-rounded">edit</i> Editar
+                    </button>
+                    <button class="card-btn btn-delete" onclick="window.deleteDiscFromCatalog(${disc.id})">
+                        <i class="material-symbols-rounded">delete</i> Eliminar
+                    </button>
+                </div>
+            </div>
+        `).join("");
+
+        // Handle Add Disc button in catalog
+        const addDiscBtn = document.querySelector("#main-view .filter-actions .btn-yellow");
+        if (addDiscBtn) {
+            addDiscBtn.addEventListener("click", () => {
+                const overviewItem = Array.from(document.querySelectorAll('.menu-item')).find(i => i.innerText.includes('Visión General'));
+                if (overviewItem) {
+                    overviewItem.click();
+                    setTimeout(() => {
+                        if (window.openAlbumModal) window.openAlbumModal();
+                    }, 150);
+                }
+            });
+        }
+    } catch (error) {
+        console.error("Error loading catalog discs:", error);
+    }
+}
+
+window.editDiscFromCatalog = async function (discId) {
+    const overviewItem = Array.from(document.querySelectorAll('.menu-item')).find(i => i.innerText.includes('Visión General'));
+    if (overviewItem) {
+        overviewItem.click();
+        setTimeout(async () => {
+            await window.editDiscById(discId);
+        }, 150);
+    }
+};
+
+window.deleteDiscFromCatalog = async function (discId) {
+    if (!confirm("¿Seguro que deseas eliminar este disco?")) return;
+    try {
+        await axios.delete(`${DISCS_API_URL}${discId}`);
+        loadCatalogDiscs();
+    } catch (error) {
+        console.error("Error deleting disc:", error);
+        alert("Error al eliminar el disco.");
+    }
+};
