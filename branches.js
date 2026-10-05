@@ -17,9 +17,9 @@ async function loadBranches() {
     branchesData = await response.json();
     renderBranches();
   } catch (error) {
-    console.error("Error cargando sucursales:", error);
+    console.error("Error cargando filiales:", error);
     alert(
-      "No se pudieron cargar las sucursales. Revisa que el backend esté encendido.",
+      "No se pudieron cargar las filiales. Revisa que el backend esté encendido.",
     );
   }
 }
@@ -63,8 +63,8 @@ function renderBranches() {
 // ---------- CREATE / EDIT WINDOW ----------
 function openBranchModal(branch = null) {
   document.getElementById("branch-modal-title").textContent = branch
-    ? "Editar sucursal"
-    : "Nueva sucursal";
+    ? "Editar filial"
+    : "Nueva filial";
   document.getElementById("branch-input-id").value = branch ? branch.id : "";
   document.getElementById("branch-input-name").value = branch
     ? branch.name
@@ -112,8 +112,8 @@ async function saveBranch(event) {
     closeBranchModal();
     await loadBranches();
   } catch (error) {
-    console.error("Error guardando sucursal:", error);
-    alert("No se pudo guardar la sucursal. Mira la consola para más detalles.");
+    console.error("Error guardando filial:", error);
+    alert("No se pudo guardar la filial. Mira la consola para más detalles.");
   } finally {
     saveBtn.disabled = false;
   }
@@ -122,7 +122,7 @@ async function saveBranch(event) {
 // ---------- DELETE ----------
 async function deleteBranch(id) {
   const branch = branchesData.find((b) => b.id === id);
-  const name = branch ? branch.name : "esta sucursal";
+  const name = branch ? branch.name : "esta filial";
 
   if (!confirm(`¿Seguro que quieres eliminar "${name}"?`)) return;
 
@@ -133,9 +133,9 @@ async function deleteBranch(id) {
     if (!response.ok) throw new Error("Error " + response.status);
     await loadBranches();
   } catch (error) {
-    console.error("Error eliminando sucursal:", error);
+    console.error("Error eliminando filial:", error);
     alert(
-      "No se pudo eliminar la sucursal. Mira la consola para más detalles.",
+      "No se pudo eliminar la filial. Mira la consola para más detalles.",
     );
   }
 }

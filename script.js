@@ -61,7 +61,7 @@ function initRouter() {
                 loadView('overview');
             } else if (text.includes('Catálogo Físico Master')) {
                 loadView('catalog');
-            } else if (text.includes('Sucursales')) {
+            } else if (text.includes('Filiales')) {
                 loadView('branches');
             } else {
                 // Under construction view for other links
