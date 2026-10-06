@@ -6,13 +6,14 @@
     } else {
         // Fallback: Dynamically load modular scripts if not directly included
         const scripts = [
-            "components/scripts/config.js",
-            "components/scripts/modal_options.js",
-            "components/scripts/image_uploader.js",
-            "components/scripts/modal.js",
-            "components/scripts/overview.js",
-            "components/scripts/catalog.js",
-            "components/scripts/router.js"
+            "src/components/scripts/config.js",
+            "src/components/scripts/modal_options.js",
+            "src/components/scripts/image_uploader.js",
+            "src/components/scripts/modal.js",
+            "src/components/scripts/overview.js",
+            "src/components/scripts/catalog.js",
+            "src/components/scripts/branches.js",
+            "src/components/scripts/router.js"
         ];
 
         function loadScriptSequentially(index) {

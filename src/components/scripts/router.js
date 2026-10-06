@@ -3,7 +3,7 @@ function loadComponents() {
     // Inject Header Component
     const headerContainer = document.getElementById("header-container");
     if (headerContainer) {
-        axios.get("components/header_component.html")
+        axios.get("src/components/header_component.html")
             .then((response) => {
                 headerContainer.outerHTML = response.data;
             })
@@ -13,7 +13,7 @@ function loadComponents() {
     // Inject Sidebar Component
     const sidebarContainer = document.getElementById("sidebar-container");
     if (sidebarContainer) {
-        axios.get('components/sidebar_component.html')
+        axios.get('src/components/sidebar_component.html')
             .then(response => {
                 sidebarContainer.outerHTML = response.data;
                 initRouter();
