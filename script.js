@@ -15,6 +15,14 @@ function escapeHtml(text) {
 axios.get("components/header_component.html")
   .then((response) => {
     document.getElementById("header-container").outerHTML = response.data;
+
+    const searchForm = document.querySelector(".search-container");
+
+    if (searchForm) {
+      searchForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+      });
+    }
   })
   .catch((error) => console.error("Error loading header component:", error));
 
