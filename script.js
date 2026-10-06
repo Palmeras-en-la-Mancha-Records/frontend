@@ -103,18 +103,34 @@ async function loadFormatOptions() {
     const formatSelect = document.getElementById("format_id");
     if (!formatSelect) return;
 
+    const defaultFormats = [
+        { id: 1, name: "Vinilo LP" },
+        { id: 2, name: "CD Digipak" },
+        { id: 3, name: "Cassette" },
+        { id: 4, name: "Vinilo 7\" Single" }
+    ];
+
     try {
         const response = await axios.get(FORMATS_API_URL);
         const formats = response.data;
         formatSelect.innerHTML = '<option value="">Selecciona un formato</option>';
-        formats.forEach((format) => {
+
+        const listToUse = (formats && formats.length > 0) ? formats : defaultFormats;
+        listToUse.forEach((format) => {
             const opt = document.createElement("option");
             opt.value = format.id;
             opt.textContent = format.name;
             formatSelect.appendChild(opt);
         });
     } catch (error) {
-        console.error("Error loading formats:", error);
+        console.error("Error loading formats, using defaults:", error);
+        formatSelect.innerHTML = '<option value="">Selecciona un formato</option>';
+        defaultFormats.forEach((format) => {
+            const opt = document.createElement("option");
+            opt.value = format.id;
+            opt.textContent = format.name;
+            formatSelect.appendChild(opt);
+        });
     }
 }
 
