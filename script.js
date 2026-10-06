@@ -39,6 +39,7 @@ function loadView(viewName) {
             if (viewName === 'overview') {
                 bindOverviewModal();
                 loadOverviewAlbums();
+                loadBranchesSummary();
             } else if (viewName === 'catalog') {
                 loadCatalogAlbums();
             } else if (viewName === 'branches') {
