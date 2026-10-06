@@ -1,7 +1,13 @@
 const ALBUMS_API_URL = "http://127.0.0.1:8000/albums/";
+const PLACEHOLDER_COVER = "src/img/dvd_placeholder.png";
 
 let albumsData = [];
 let editingAlbumId = null;
+
+function coverSrc(url) {
+    const value = (url ?? "").trim();
+    return value ? value : PLACEHOLDER_COVER;
+}
 
 function escapeHtml(text) {
     const div = document.createElement("div");
