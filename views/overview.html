@@ -4,14 +4,17 @@
             <span class="bc-link vg-badge">PANEL CULTURAL</span>
             <span class="bc-current vg-ml-8">Garantía de stock y venta exclusiva</span>
         </div>
+
         <h1 class="page-title">Visión General</h1>
         <p class="page-desc">Resumen operativo y comercial de Palmeras en la Mancha Records</p>
     </div>
+
     <div class="header-actions">
         <button class="btn btn-outline">
             <i class="material-symbols-rounded">storefront</i>
             + Nueva Filial
         </button>
+
         <button class="btn btn-yellow" id="openModal">
             <i class="material-symbols-rounded">add_circle</i>
             + Añadir Disco
@@ -20,18 +23,26 @@
 </header>
 
 <section class="vg-grid">
-    <!-- Left Column -->
+
+    
     <section class="vg-col">
+
+        
         <section class="filter-card vg-card">
             <header class="grid-header">
                 <div class="grid-title-group vg-section-header">
                     <h2 class="grid-title">Últimos Discos Añadidos</h2>
                     <p class="page-desc vg-section-desc">Nuevas incorporaciones al catálogo central y tiendas asociadas</p>
                 </div>
-                <a href="#" class="vg-link">Ver catálogo<br>completo <i class="material-symbols-rounded">arrow_forward</i></a>
+
+                <a href="#" class="vg-link">
+                    Ver catálogo<br>
+                    completo
+                    <i class="material-symbols-rounded">arrow_forward</i>
+                </a>
             </header>
 
-            <!-- Empty State for Backend -->
+            
             <section class="empty-state vg-empty">
                 <i class="material-symbols-rounded empty-state-icon vg-icon-32">sync</i>
                 <h3 class="empty-state-title vg-title-16">Esperando datos</h3>
@@ -39,16 +50,19 @@
             </section>
         </section>
 
-        <!-- Cultural Spotlight (Backend Placeholder) -->
+        
         <section class="filter-card vg-empty-cultural">
             <i class="material-symbols-rounded empty-state-icon vg-icon-32">stars</i>
             <h3 class="empty-state-title vg-title-16">Ficha Cultural</h3>
             <p class="empty-state-desc vg-text-center">El artista destacado se sincronizará con el backend.</p>
         </section>
+
     </section>
 
-    <!-- Right Column -->
+    
     <section class="vg-col">
+
+        
         <section class="filter-card vg-card-full">
             <header class="grid-header">
                 <div class="grid-title-group vg-section-header">
@@ -56,12 +70,17 @@
                         <div class="vg-sedes-marker"></div>
                         <h2 class="grid-title">Resumen de Sedes</h2>
                     </div>
+
                     <p class="page-desc vg-sedes-desc">Estado y actividad en tiendas físicas</p>
                 </div>
-                <a href="#" class="vg-link">Gestionar <i class="material-symbols-rounded">arrow_forward</i></a>
+
+                <a href="#" class="vg-link">
+                    Gestionar
+                    <i class="material-symbols-rounded">arrow_forward</i>
+                </a>
             </header>
 
-            <!-- Branches list (filled by branches.js) -->
+                <!-- Branches list (filled by branches.js) -->
             <div id="overview-branches-list"></div>
 
             <!-- Empty State for Backend -->
@@ -71,10 +90,11 @@
                 <p class="empty-state-desc">El resumen de sedes se sincronizará con el backend.</p>
             </section>
         </section>
+
     </section>
 </section>
 
-<!-- Modal -->
+
 <dialog id="discModal" class="modal" aria-labelledby="modalTitle">
     <section class="modal-content modal-large">
 
@@ -167,7 +187,7 @@
                     >
                 </fieldset>
 
-                <!-- Album Cover -->
+                
                 <fieldset class="modal-col">
                     <legend>Portada del disco</legend>
 
