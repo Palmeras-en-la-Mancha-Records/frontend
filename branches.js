@@ -172,3 +172,35 @@ function initBranches() {
 
   loadBranches();
 }
+
+// ---------- OVERVIEW: BRANCHES SUMMARY ----------
+async function loadBranchesSummary() {
+  const list = document.getElementById("overview-branches-list");
+  const empty = document.getElementById("overview-branches-empty");
+  if (!list) return;
+
+  try {
+    const response = await axios.get(BRANCHES_API_URL);
+    const branches = response.data;
+
+    if (!branches || branches.length === 0) {
+      if (empty) empty.style.display = "";
+      list.innerHTML = "";
+      return;
+    }
+
+    if (empty) empty.style.display = "none";
+    list.innerHTML = branches
+      .map(
+        (branch) => `
+          <div style="padding: 12px 16px; border: 1px solid var(--border); border-radius: 12px; background-color: #ffffff; margin-top: 12px;">
+            <div style="font-weight: 700; font-size: 14px; color: var(--text-dark);">${escapeHtml(branch.name)}</div>
+            <div style="font-size: 12px; color: var(--text-gray); margin-top: 4px;">${escapeHtml(branch.address)}</div>
+            <div style="font-size: 12px; color: var(--text-gray); margin-top: 2px;">${escapeHtml(branch.phone)}</div>
+          </div>`,
+      )
+      .join("");
+  } catch (error) {
+    console.error("Error cargando el resumen de sedes:", error);
+  }
+}
