@@ -1,0 +1,42 @@
+/* --- Overview: latest albums grid --- */
+#latest-albums-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+    padding: 0 0 8px;
+}
+
+#latest-albums-grid:not(:empty) + #latest-albums-empty {
+    display: none;
+}
+
+.mini-card {
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.mini-card .card-image-wrap {
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.mini-title {
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.mini-subtitle {
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.mini-price {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-top: auto;
+}
+
+/* --- Catalogue responsive columns --- */
+@media (max-width: 1200px) {
+    .cards-grid { grid-template-columns: repeat(3, 1fr); }
+}
