@@ -1,0 +1,119 @@
+<header class="page-header">
+    <div>
+        <div class="breadcrumbs">
+            <span class="bc-link">Inventario Físico Central</span>
+            <span class="bc-separator">/</span>
+            <span class="bc-current">Ficha Técnica & Canales FNAC</span>
+        </div>
+
+        <h1 class="page-title">Catálogo de Ediciones Físicas &<br>Discografías</h1>
+        <p class="page-desc">Supervisión de tiradas en vinilo, CD digipaks y cassettes con categorización por géneros y trazabilidad de artistas.</p>
+    </div>
+
+    <div class="header-actions">
+        <button class="btn btn-outline" id="catalog-filter-badge">
+            <div class="dot-yellow"></div>
+            <span id="catalog-filter-count">0 Títulos Filtrados</span>
+        </button>
+
+        <button class="btn btn-outline">
+            <i class="material-symbols-rounded">download</i>
+            Exportar CSV
+        </button>
+    </div>
+</header>
+
+
+<section class="filter-card">
+    <section class="filter-grid">
+        <section class="filter-group">
+            <label class="filter-label">
+                <i class="material-symbols-rounded">search</i>
+                Buscar Álbum o Artista
+            </label>
+            <input type="text" placeholder="Buscar por título o artista..." class="filter-input" id="filter-search-input">
+        </section>
+
+        <section class="filter-group">
+            <label class="filter-label">
+                <i class="material-symbols-rounded">domain</i>
+                Sello / Discográfica
+            </label>
+            <select class="filter-select" id="filter-label-select">
+                <option value="">Todos los sellos</option>
+                <option value="Warner Music Spain">Warner Music Spain</option>
+                <option value="Sony Music Entertainment">Sony Music Entertainment</option>
+                <option value="Universal Music">Universal Music</option>
+                <option value="Mushroom Pillow">Mushroom Pillow</option>
+                <option value="Elefant Records">Elefant Records</option>
+                <option value="Sub Pop">Sub Pop</option>
+                <option value="Autoeditado">Autoeditado</option>
+            </select>
+        </section>
+
+        <section class="filter-group">
+            <label class="filter-label">
+                <i class="material-symbols-rounded">storefront</i>
+                Tiendas
+            </label>
+            <select class="filter-select" id="filter-store-select">
+                <option value="">Todas las tiendas</option>
+            </select>
+        </section>
+    </section>
+
+    <section class="genres-row" id="catalog-genres-row">
+        <span class="genres-label">
+            <i class="material-symbols-rounded">tune</i>
+            GÉNEROS:
+        </span>
+
+        <span class="tag active" data-genre="">Todos</span>
+        <span class="tag inactive" data-genre="Indie Rock">Indie Rock</span>
+        <span class="tag inactive" data-genre="Pop Alternativo">Pop Alternativo</span>
+        <span class="tag inactive" data-genre="Flamenco Urbano">Flamenco Urbano</span>
+        <span class="tag inactive" data-genre="Shoegaze / Dream Pop">Shoegaze / Dream Pop</span>
+        <span class="tag inactive" data-genre="Electrónica">Electrónica</span>
+    </section>
+
+    <footer class="filter-actions">
+        <button class="btn btn-outline" id="filter-btn-clear">
+            <i class="material-symbols-rounded">refresh</i>
+            Limpiar
+        </button>
+
+        <button class="btn btn-dark" id="filter-btn-apply">
+            <i class="material-symbols-rounded">filter_alt</i>
+            Aplicar Filtros
+        </button>
+
+        <button class="btn btn-yellow" id="filter-btn-add">
+            <i class="material-symbols-rounded">add_circle</i>
+            Nuevo Disco
+        </button>
+    </footer>
+</section>
+
+
+<header class="grid-header">
+    <div class="grid-title-group">
+        <h2 class="grid-title">Catálogo & Sellos Asociados</h2>
+        <span class="badge-dark">0 ediciones activas</span>
+    </div>
+
+    <div class="sort-btn">
+        <i class="material-symbols-rounded">sort</i>
+        Orden: Disponibilidad & Stock Global
+    </div>
+</header>
+
+
+<section class="cards-grid" id="catalog-grid">
+    
+</section>
+
+<section class="empty-state">
+    <i class="material-symbols-rounded empty-state-icon">album</i>
+    <h3 class="empty-state-title">El catálogo está vacío</h3>
+    <p class="empty-state-desc">No hay ediciones físicas para mostrar con los filtros actuales. El catálogo se conectará y sincronizará con el backend próximamente.</p>
+</section>
