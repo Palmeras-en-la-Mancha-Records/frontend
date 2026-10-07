@@ -228,15 +228,11 @@ function setupCatalogFilters() {
         applyBtn.onclick = () => applyCatalogFilters();
     }
 
-    // New physical album button (navigate to overview and open modal)
+    // New album button (opens modal directly like in Overview)
     if (addDiscBtn) {
         addDiscBtn.onclick = () => {
-            const overviewItem = Array.from(document.querySelectorAll('.menu-item')).find(i => i.innerText.includes('Visión General'));
-            if (overviewItem) {
-                overviewItem.click();
-                setTimeout(() => {
-                    if (window.openAlbumModal) window.openAlbumModal();
-                }, 150);
+            if (typeof window.openAlbumModal === "function") {
+                window.openAlbumModal();
             }
         };
     }
@@ -290,12 +286,15 @@ async function loadCatalogAlbums() {
 }
 
 window.editAlbumFromCatalog = async function (albumId) {
-    const overviewItem = Array.from(document.querySelectorAll('.menu-item')).find(i => i.innerText.includes('Visión General'));
-    if (overviewItem) {
-        overviewItem.click();
-        setTimeout(async () => {
-            if (window.editAlbumById) await window.editAlbumById(albumId);
-        }, 150);
+    const apiUrl = window.ALBUMS_API_URL || "http://127.0.0.1:8000/albums/";
+    try {
+        const response = await axios.get(`${apiUrl}${albumId}`);
+        if (typeof window.openAlbumModal === "function") {
+            window.openAlbumModal(response.data);
+        }
+    } catch (error) {
+        console.error("Error fetching album for editing:", error);
+        alert("No se pudo obtener el álbum para editar.");
     }
 };
 

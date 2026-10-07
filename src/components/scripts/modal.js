@@ -1,5 +1,6 @@
 // Album Modal & Form Management
 let editingAlbumId = null;
+let modalInitialized = false;
 
 function fillAlbumForm(album = null) {
     const form = document.getElementById("discForm");
@@ -24,13 +25,15 @@ function fillAlbumForm(album = null) {
 
         if (window.setImagePreview) window.setImagePreview(album.cover_image_url);
     } else {
-        if (titleEl) titleEl.textContent = "Añadir álbum";
-        if (submitBtn) submitBtn.textContent = "Añadir álbum";
+        if (titleEl) titleEl.textContent = "Añadir disco";
+        if (submitBtn) submitBtn.textContent = "Añadir disco";
         if (window.setImagePreview) window.setImagePreview(null);
     }
 }
 
 async function openAlbumModal(album = null) {
+    initAlbumModal();
+
     editingAlbumId = album ? album.id : null;
 
     if (window.loadFormatOptions) await window.loadFormatOptions();
@@ -39,14 +42,19 @@ async function openAlbumModal(album = null) {
     fillAlbumForm(album);
 
     const discModal = document.getElementById("discModal");
-    if (discModal) discModal.showModal();
+    if (discModal) {
+        if (typeof discModal.showModal === "function") {
+            discModal.showModal();
+        } else {
+            discModal.setAttribute("open", "");
+        }
+    }
 }
 
-function bindOverviewModal() {
-    const openModalBtn = document.getElementById("openModal");
-    const closeModalBtn = document.getElementById("closeModal");
+function initAlbumModal() {
     const discModal = document.getElementById("discModal");
     const discForm = document.getElementById("discForm");
+    const closeModalBtn = document.getElementById("closeModal");
 
     if (!discModal || !discForm) return;
 
@@ -54,10 +62,12 @@ function bindOverviewModal() {
     if (window.loadLabelOptions) window.loadLabelOptions();
     if (window.setupImageUploader) window.setupImageUploader();
 
-    window.openAlbumModal = openAlbumModal;
+    if (modalInitialized) return;
+    modalInitialized = true;
 
-    if (openModalBtn) openModalBtn.onclick = () => openAlbumModal();
-    if (closeModalBtn) closeModalBtn.onclick = () => discModal.close();
+    if (closeModalBtn) {
+        closeModalBtn.onclick = () => discModal.close();
+    }
 
     discModal.onclick = (e) => {
         if (e.target === discModal) discModal.close();
@@ -92,7 +102,11 @@ function bindOverviewModal() {
             if (window.setImagePreview) window.setImagePreview(null);
             editingAlbumId = null;
 
-            if (typeof window.loadOverviewAlbums === "function") {
+            // Refresh active view
+            if (document.getElementById("catalog-grid") && typeof window.loadCatalogAlbums === "function") {
+                window.loadCatalogAlbums();
+            }
+            if ((document.getElementById("overview-discs-list") || document.querySelector(".vg-col")) && typeof window.loadOverviewAlbums === "function") {
                 window.loadOverviewAlbums();
             }
         } catch (error) {
@@ -102,6 +116,15 @@ function bindOverviewModal() {
             alert(`Error al guardar el álbum: ${message}`);
         }
     };
+}
+
+function bindOverviewModal() {
+    initAlbumModal();
+
+    const openModalBtn = document.getElementById("openModal");
+    if (openModalBtn) {
+        openModalBtn.onclick = () => openAlbumModal();
+    }
 
     // Overview link to catalog
     const catalogLink = document.querySelector(".vg-link");
@@ -115,5 +138,13 @@ function bindOverviewModal() {
     }
 }
 
+// Global Exports & Auto-init
 window.openAlbumModal = openAlbumModal;
+window.initAlbumModal = initAlbumModal;
 window.bindOverviewModal = bindOverviewModal;
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAlbumModal);
+} else {
+    initAlbumModal();
+}
