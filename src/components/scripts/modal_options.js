@@ -50,5 +50,29 @@ function loadLabelOptions() {
     populateSelect(labelSelect, defaultLabels, "Selecciona una discográfica");
 }
 
+function loadGenreOptions() {
+    const genreSelect = document.getElementById("genre");
+    if (!genreSelect) return;
+
+    const defaultGenres = [
+        "Indie Rock",
+        "Pop Alternativo",
+        "Flamenco Urbano",
+        "Flamenco Fusión",
+        "Cumbia Psicodélica",
+        "Post-Punk / Synthpop",
+        "Dream Pop",
+        "Shoegaze",
+        "Synthwave",
+        "Garage Rock",
+        "Electrónica",
+        "Ambient / Lo-Fi",
+        "Perruno"
+    ];
+
+    populateSelect(genreSelect, defaultGenres, "Selecciona un género");
+}
+
 window.loadFormatOptions = loadFormatOptions;
 window.loadLabelOptions = loadLabelOptions;
+window.loadGenreOptions = loadGenreOptions;
