@@ -13,11 +13,23 @@ function fillAlbumForm(album = null) {
         if (titleEl) titleEl.textContent = "Editar álbum";
         if (submitBtn) submitBtn.textContent = "Guardar cambios";
 
-        const fields = ["title", "artist", "release_year", "genre", "format_id", "price", "stock"];
+        const fields = ["title", "artist", "release_year", "format_id", "price", "stock"];
         fields.forEach((field) => {
             const el = document.getElementById(field);
             if (el) el.value = album[field] ?? "";
         });
+
+        const genreEl = document.getElementById("genre");
+        if (genreEl && album.genre) {
+            const exists = Array.from(genreEl.options).some((opt) => opt.value === album.genre);
+            if (!exists) {
+                const opt = document.createElement("option");
+                opt.value = album.genre;
+                opt.textContent = album.genre;
+                genreEl.appendChild(opt);
+            }
+            genreEl.value = album.genre;
+        }
 
         const labelEl = document.getElementById("label_id");
         if (labelEl) labelEl.value = album.record_label ?? album.label_id ?? "";
@@ -52,6 +64,7 @@ async function openAlbumModal(album = null) {
 
     if (window.loadFormatOptions) await window.loadFormatOptions();
     if (window.loadLabelOptions) window.loadLabelOptions();
+    if (window.loadGenreOptions) window.loadGenreOptions();
 
     fillAlbumForm(album);
 
@@ -74,6 +87,7 @@ function initAlbumModal() {
 
     if (window.loadFormatOptions) window.loadFormatOptions();
     if (window.loadLabelOptions) window.loadLabelOptions();
+    if (window.loadGenreOptions) window.loadGenreOptions();
     if (window.setupImageUploader) window.setupImageUploader();
 
     if (closeModalBtn) {
