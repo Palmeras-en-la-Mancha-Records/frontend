@@ -1,12 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-@import url(src/components/sidebar_component.css);
-@import url(src/components/header_component.css);
-@import url(src/views/styles/overview.css);
-@import url(src/views/styles/modal.css);
-@import url(src/views/styles/catalogue.css);
-@import url(src/views/styles/albums.css);
-@import url(src/views/styles/branches.css);
+@import url('../../../views/styles/sidebar_component.css');
+@import url('../../../views/styles/header_component.css');
+@import url('./overview.css');
+@import url('./modal.css');
+@import url('./catalogue.css');
+@import url('./albums.css');
+@import url('./branches.css');
+@import url('../../../views/styles/overview.css');
+@import url('../../../views/styles/catalog.css');
+@import url('../../../views/styles/modal.css');
+@import url('../../../views/styles/branches.css');
 
 :root {
   --sidebar-bg: #1a1b26;

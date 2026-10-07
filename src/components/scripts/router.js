@@ -3,7 +3,7 @@ function loadComponents() {
     // Inject Header Component
     const headerContainer = document.getElementById("header-container");
     if (headerContainer) {
-        axios.get("src/components/header_component.html")
+        axios.get("views/header_component.html")
             .then((response) => {
                 headerContainer.outerHTML = response.data;
                 const searchForm = document.querySelector(".search-container");
@@ -17,7 +17,7 @@ function loadComponents() {
     // Inject Sidebar Component
     const sidebarContainer = document.getElementById("sidebar-container");
     if (sidebarContainer) {
-        axios.get('src/components/sidebar_component.html')
+        axios.get("views/sidebar_component.html")
             .then(response => {
                 sidebarContainer.outerHTML = response.data;
                 initRouter();
@@ -102,3 +102,10 @@ function initRouter() {
 window.loadComponents = loadComponents;
 window.loadView = loadView;
 window.initRouter = initRouter;
+
+// Auto-arranque: inicia la app cuando el DOM esté listo
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", loadComponents);
+} else {
+    loadComponents();
+}
