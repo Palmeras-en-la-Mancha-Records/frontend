@@ -152,26 +152,28 @@
 
 /* --- Create / Edit Modal --- */
 .branch-modal {
-  display: none;
-  position: fixed;
-  inset: 0;
+  border: none;
+  border-radius: 16px;
+  padding: 0;
+  width: min(420px, calc(100% - 32px));
+  max-width: 420px;
+  margin: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.branch-modal::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 16px;
+
 }
-.branch-modal.open {
-  display: flex;
-}
+
 .branch-modal-box {
   background-color: white;
   border-radius: 16px;
   padding: 24px;
   width: 100%;
-  max-width: 420px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
 }
+
 .branch-modal-title {
   font-weight: 800;
   font-size: 20px;
