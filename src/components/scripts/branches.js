@@ -67,22 +67,31 @@ function openBranchModal(branch = null) {
   document.getElementById("branch-modal-title").textContent = branch
     ? "Editar filial"
     : "Nueva filial";
-  document.getElementById("branch-input-id").value = branch ? branch.id : "";
+
+  document.getElementById("branch-input-id").value = branch
+    ? branch.id
+    : "";
+
   document.getElementById("branch-input-name").value = branch
     ? branch.name
     : "";
+
   document.getElementById("branch-input-address").value = branch
     ? branch.address
     : "";
+
   document.getElementById("branch-input-phone").value = branch
     ? branch.phone
     : "";
-  document.getElementById("branch-modal").classList.add("open");
+
+  document.getElementById("branch-modal").showModal();
+
   document.getElementById("branch-input-name").focus();
 }
 
 function closeBranchModal() {
-  document.getElementById("branch-modal").classList.remove("open");
+  const modal = document.getElementById("branch-modal");
+  modal.close();
 }
 
 // Write Operations
