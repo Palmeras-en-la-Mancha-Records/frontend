@@ -66,20 +66,37 @@ function renderCatalogCards(albums) {
 function filterCatalog() {
     const search = (document.getElementById("filter-search-input")?.value || "").toLowerCase().trim();
     const label = document.getElementById("filter-label-select")?.value || "";
+    const store = document.getElementById("filter-store-select")?.value || "";
 
     const filtered = catalogAlbumsList.filter((a) => {
         const matchesSearch = !search || (a.title || "").toLowerCase().includes(search) || (a.artist || "").toLowerCase().includes(search);
         const matchesLabel = !label || a.record_label === label;
         const matchesGenre = !selectedGenre || (a.genre || "").toLowerCase().includes(selectedGenre.toLowerCase());
-        return matchesSearch && matchesLabel && matchesGenre;
+        const matchesStore = !store || store === "1" || a.stock > 0;
+        return matchesSearch && matchesLabel && matchesGenre && matchesStore;
     });
 
     renderCatalogCards(filtered);
 }
 
+async function loadCatalogStores() {
+    const storeSelect = document.getElementById("filter-store-select");
+    if (!storeSelect) return;
+    try {
+        const branchesApi = window.BRANCHES_API_URL || "http://127.0.0.1:8000/branches/";
+        const res = await axios.get(branchesApi);
+        const branches = res.data || [];
+        const escape = window.escapeHtml || ((t) => t ?? "");
+        storeSelect.innerHTML = '<option value="">Todas las tiendas</option>' + branches.map((b) => `<option value="${b.id}">${escape(b.name)}</option>`).join("");
+    } catch (e) {
+        console.error("Error cargando filiales en el filtro:", e);
+    }
+}
+
 function setupCatalogEvents() {
     document.getElementById("filter-search-input")?.addEventListener("input", filterCatalog);
     document.getElementById("filter-label-select")?.addEventListener("change", filterCatalog);
+    document.getElementById("filter-store-select")?.addEventListener("change", filterCatalog);
     document.getElementById("filter-btn-apply")?.addEventListener("click", filterCatalog);
 
     const tags = document.querySelectorAll("#catalog-genres-row .tag");
@@ -95,8 +112,10 @@ function setupCatalogEvents() {
     document.getElementById("filter-btn-clear")?.addEventListener("click", () => {
         const searchInput = document.getElementById("filter-search-input");
         const labelSelect = document.getElementById("filter-label-select");
+        const storeSelect = document.getElementById("filter-store-select");
         if (searchInput) searchInput.value = "";
         if (labelSelect) labelSelect.value = "";
+        if (storeSelect) storeSelect.value = "";
         selectedGenre = "";
         tags.forEach((t) => t.className = t.getAttribute("data-genre") === "" ? "tag active" : "tag inactive");
         renderCatalogCards(catalogAlbumsList);
@@ -118,6 +137,7 @@ async function loadCatalogAlbums() {
         catalogAlbumsList = response.data || [];
         renderCatalogCards(catalogAlbumsList);
         setupCatalogEvents();
+        loadCatalogStores();
     } catch (error) {
         console.error("Error loading catalog albums:", error);
     }
