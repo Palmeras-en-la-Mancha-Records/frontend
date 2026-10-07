@@ -1,43 +1,48 @@
-<div class="page-header">
+<header class="page-header">
     <div>
         <div class="breadcrumbs">
             <span class="bc-link">Red Comercial</span>
             <span class="bc-separator">/</span>
             <span class="bc-current">Filiales</span>
         </div>
+
         <h1 class="page-title">Filiales</h1>
         <p class="page-desc">Gestión de las tiendas y puntos de venta de Palmeras Records.</p>
     </div>
+
     <div class="header-actions">
         <button class="btn btn-outline">
             <div class="dot-yellow"></div>
             <span id="branches-count">0</span>&nbsp;Filiales
         </button>
+
         <button class="btn btn-yellow" id="branches-new-btn">
             <i class="material-symbols-rounded">add_circle</i>
             Nueva Filial
         </button>
     </div>
-</div>
+</header>
 
-<!-- List Header -->
-<div class="grid-header">
+
+<header class="grid-header">
     <div class="grid-title-group">
         <h2 class="grid-title">Listado de Filiales</h2>
-        <span class="badge-dark"><span id="branches-badge">0</span> filiales activas</span>
+        <span class="badge-dark">
+            <span id="branches-badge">0</span> filiales activas
+        </span>
     </div>
-</div>
+</header>
 
-<!-- branches.js will render the stores returned by the API here -->
-<div class="branches-grid" id="branches-grid">
-    <!-- Dynamic content -->
-</div>
 
-<div class="empty-state" id="branches-empty">
+<section class="branches-grid" id="branches-grid">
+    
+</section>
+
+<section class="empty-state" id="branches-empty">
     <i class="material-symbols-rounded empty-state-icon">storefront</i>
     <h3 class="empty-state-title">No hay filiales</h3>
     <p class="empty-state-desc">Todavía no hay filiales para mostrar.</p>
-</div>
+</section>
 
 <!-- Pop-up window: create / edit -->
 <dialog class="branch-modal" id="branch-modal">

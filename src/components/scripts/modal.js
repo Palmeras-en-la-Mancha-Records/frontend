@@ -46,7 +46,7 @@ async function openAlbumModal(album = null) {
     let discModal = document.getElementById("discModal");
     if (!discModal) {
         try {
-            const res = await axios.get("views/overview.html");
+            const res = await axios.get("src/views/overview.html");
             const parser = new DOMParser();
             const doc = parser.parseFromString(res.data, "text/html");
             const modalEl = doc.getElementById("discModal");
