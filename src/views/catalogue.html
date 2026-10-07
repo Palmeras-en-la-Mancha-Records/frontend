@@ -1,0 +1,99 @@
+<div class="page-header">
+    <div>
+        <div class="breadcrumbs">
+            <span class="bc-link">Inventario Físico Central</span>
+            <span class="bc-separator">/</span>
+            <span class="bc-current">Ficha Técnica & Canales FNAC</span>
+        </div>
+        <h1 class="page-title">Catálogo de Ediciones Físicas &<br>Discografías</h1>
+        <p class="page-desc">Supervisión de tiradas en vinilo, CD digipaks y cassettes con categorización por géneros y trazabilidad de artistas.</p>
+    </div>
+    <div class="header-actions">
+        <button class="btn btn-outline">
+            <div class="dot-yellow"></div>
+            <span id="filtered-count">0</span>&nbsp;Títulos Filtrados
+        </button>
+        <button class="btn btn-outline">
+            <i class="material-symbols-rounded">download</i>
+            Exportar CSV
+        </button>
+    </div>
+</div>
+
+<!-- Filter Panel -->
+<div class="filter-card">
+    <div class="filter-grid">
+        <div class="filter-group">
+            <label class="filter-label"><i class="material-symbols-rounded">search</i> Buscar Álbum o Artista</label>
+            <input type="text" id="filter-search" placeholder="El Poeta Halley" class="filter-input">
+        </div>
+        <div class="filter-group">
+            <label class="filter-label"><i class="material-symbols-rounded">music_note</i> Género Musical</label>
+            <select id="filter-genre" class="filter-select">
+                <option value="">Todos los géneros</option>
+                <option>Indie Rock</option>
+                <option>Pop Alternativo</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label class="filter-label"><i class="material-symbols-rounded">album</i> Formato Físico</label>
+            <select class="filter-select">
+                <option>Todos los formatos</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label class="filter-label"><i class="material-symbols-rounded">domain</i> Sello / Discográfica</label>
+            <select id="filter-label" class="filter-select">
+                <option value="">Todos los sellos</option>
+                <option>Warner Music Spain</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label class="filter-label"><i class="material-symbols-rounded">storefront</i> Tiendas</label>
+            <select class="filter-select">
+                <option>Todas las tiendas</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="genres-row">
+        <span class="genres-label"><i class="material-symbols-rounded">tune</i> GÉNEROS:</span>
+        <span class="tag active">Indie Rock</span>
+        <span class="tag inactive">Pop Alternativo</span>
+        <span class="tag inactive">Flamenco Urbano</span>
+        <span class="tag inactive">Shoegaze / Dream Pop</span>
+        <span class="tag inactive">Electrónica</span>
+    </div>
+
+    <div class="filter-actions">
+        <button class="btn btn-outline" id="filter-clear">
+            <i class="material-symbols-rounded">refresh</i> Limpiar
+        </button>
+        <button class="btn btn-dark" id="filter-apply">
+            <i class="material-symbols-rounded">filter_alt</i> Aplicar Filtros
+        </button>
+        <button class="btn btn-yellow" id="openModal">
+            <i class="material-symbols-rounded">add_circle</i> Nuevo Disco Físico
+        </button>
+    </div>
+</div>
+
+<!-- List Header -->
+<div class="grid-header">
+    <div class="grid-title-group">
+        <h2 class="grid-title">Catálogo & Sellos Asociados</h2>
+        <span class="badge-dark"><span id="catalog-count">0</span> ediciones activas</span>
+    </div>
+    <div class="sort-btn">
+        <i class="material-symbols-rounded">sort</i> Orden: Disponibilidad & Stock Global
+    </div>
+</div>
+
+<!-- Records, rendered by albums.js -->
+<div class="cards-grid" id="catalog-grid"></div>
+
+<div class="empty-state" id="catalog-empty">
+    <i class="material-symbols-rounded empty-state-icon">album</i>
+    <h3 class="empty-state-title" id="catalog-empty-title">El catálogo está vacío</h3>
+    <p class="empty-state-desc" id="catalog-empty-desc">No hay ediciones físicas para mostrar con los filtros actuales.</p>
+</div>

@@ -207,4 +207,5 @@ async function loadBranchesSummary() {
 
 window.initBranches = initBranches;
 window.loadBranches = loadBranches;
-window.loadBranchesSummary = loadBranchesSummary;
+window.loadBranchesSummary = loadBranchesSummary;
+window.openBranchModal = openBranchModal;
