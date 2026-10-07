@@ -1,5 +1,5 @@
 /* --- Filters Panel --- */
-.filter-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 16px; }
+.filter-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
 .filter-group { display: flex; flex-direction: column; gap: 6px; }
 .filter-label { font-size: 11px; font-weight: bold; color: var(--text-gray); text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
 .filter-label i { color: var(--yellow); }
@@ -9,10 +9,10 @@
 
 .genres-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
 .genres-label { font-size: 12px; font-weight: bold; color: #9ca3af; display: flex; align-items: center; gap: 4px; }
-.tag { padding: 4px 12px; border-radius: 9999px; font-size: 12px; font-weight: 500; cursor: pointer; transition: background-color 0.2s; }
-.tag.active { background-color: var(--yellow); color: var(--sidebar-bg); font-weight: bold; }
+.tag { padding: 4px 12px; border-radius: 9999px; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; user-select: none; }
+.tag.active { background-color: var(--yellow); color: var(--sidebar-bg); font-weight: bold; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
 .tag.inactive { background-color: #f3f4f6; color: #4b5563; }
-.tag.inactive:hover { background-color: #e5e7eb; }
+.tag.inactive:hover { background-color: #e5e7eb; color: #111827; }
 
 .filter-actions { display: flex; align-items: center; gap: 12px; padding-top: 16px; border-top: 1px solid #f3f4f6; }
 .filter-actions .btn-yellow { margin-left: auto; }
