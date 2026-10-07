@@ -93,3 +93,147 @@
 
     </section>
 </section>
+
+
+<dialog id="discModal" class="modal" aria-labelledby="modalTitle">
+    <section class="modal-content modal-large">
+
+        <button
+            id="closeModal"
+            class="close"
+            type="button"
+            aria-label="Cerrar ventana"
+        >
+            ×
+        </button>
+
+        <h2 id="modalTitle">Añadir disco</h2>
+
+        <form id="discForm">
+
+            <div class="modal-grid">
+
+                <!-- Album Data -->
+                <fieldset class="modal-col">
+                    <legend>Datos del disco</legend>
+
+                    <label for="title">Título</label>
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        required
+                    >
+
+                    <label for="artist">Artista</label>
+                    <input
+                        type="text"
+                        id="artist"
+                        name="artist"
+                        required
+                    >
+
+                    <label for="release_year">Año de lanzamiento</label>
+                    <input
+                        type="number"
+                        id="release_year"
+                        name="release_year"
+                        required
+                    >
+
+                    <label for="genre">Género</label>
+                    <input
+                        type="text"
+                        id="genre"
+                        name="genre"
+                        required
+                    >
+
+                    <label for="label_id">Discográfica</label>
+                    <select
+                        id="label_id"
+                        name="label_id"
+                        required
+                    >
+                        <option value="">Selecciona una discográfica</option>
+                    </select>
+
+                    <label for="format_id">Formato</label>
+                    <select
+                        id="format_id"
+                        name="format_id"
+                        required
+                    >
+                        <option value="">Selecciona un formato</option>
+                    </select>
+
+                    <label for="price">Precio</label>
+                    <input
+                        type="number"
+                        id="price"
+                        name="price"
+                        step="0.01"
+                        min="0"
+                        required
+                    >
+
+                    <label for="stock">Stock</label>
+                    <input
+                        type="number"
+                        id="stock"
+                        name="stock"
+                        min="0"
+                        required
+                    >
+                </fieldset>
+
+                
+                <fieldset class="modal-col">
+                    <legend>Portada del disco</legend>
+
+                    <div
+                        class="image-upload-box"
+                        id="imageUploadBox"
+                    >
+                        <input
+                            type="file"
+                            id="cover_image_file"
+                            name="cover_image_file"
+                            accept="image/*"
+                            aria-label="Seleccionar portada del disco"
+                        >
+
+                        <i
+                            class="material-symbols-rounded upload-icon"
+                            aria-hidden="true"
+                        >
+                            add_photo_alternate
+                        </i>
+
+                        <p>
+                            Haz clic para seleccionar<br>
+                            la portada
+                        </p>
+
+                        <img
+                            id="coverPreview"
+                            src="src/img/dvd_placeholder.png"
+                            alt="Previsualización de la portada"
+                        >
+                    </div>
+                </fieldset>
+
+            </div>
+
+            <footer class="modal-footer">
+                <button
+                    type="submit"
+                    class="btn-submit"
+                >
+                    Añadir disco
+                </button>
+            </footer>
+
+        </form>
+    </section>
+</dialog>

@@ -1,6 +1,5 @@
 // Album Modal & Form Management
 let editingAlbumId = null;
-let modalInitialized = false;
 
 function fillAlbumForm(album = null) {
     const form = document.getElementById("discForm");
@@ -61,9 +60,6 @@ function initAlbumModal() {
     if (window.loadFormatOptions) window.loadFormatOptions();
     if (window.loadLabelOptions) window.loadLabelOptions();
     if (window.setupImageUploader) window.setupImageUploader();
-
-    if (modalInitialized) return;
-    modalInitialized = true;
 
     if (closeModalBtn) {
         closeModalBtn.onclick = () => discModal.close();

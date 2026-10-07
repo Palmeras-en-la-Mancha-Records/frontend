@@ -273,6 +273,10 @@ async function loadCatalogAlbums() {
     const apiUrl = window.ALBUMS_API_URL || "http://127.0.0.1:8000/albums/";
 
     try {
+        if (typeof window.initAlbumModal === "function") {
+            window.initAlbumModal();
+        }
+
         const response = await axios.get(apiUrl);
         allCatalogAlbums = Array.isArray(response.data) ? response.data : [];
 
