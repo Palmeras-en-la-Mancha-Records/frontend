@@ -31,8 +31,23 @@ function fillAlbumForm(album = null) {
 }
 
 async function openAlbumModal(album = null) {
-    initAlbumModal();
+    let discModal = document.getElementById("discModal");
+    if (!discModal) {
+        try {
+            const res = await axios.get("views/overview.html");
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(res.data, "text/html");
+            const modalEl = doc.getElementById("discModal");
+            if (modalEl) {
+                document.getElementById("main-view")?.appendChild(modalEl);
+                discModal = modalEl;
+            }
+        } catch (e) {
+            console.error("Error loading modal template from overview:", e);
+        }
+    }
 
+    initAlbumModal();
     editingAlbumId = album ? album.id : null;
 
     if (window.loadFormatOptions) await window.loadFormatOptions();
@@ -40,7 +55,7 @@ async function openAlbumModal(album = null) {
 
     fillAlbumForm(album);
 
-    const discModal = document.getElementById("discModal");
+    discModal = document.getElementById("discModal");
     if (discModal) {
         if (typeof discModal.showModal === "function") {
             discModal.showModal();
