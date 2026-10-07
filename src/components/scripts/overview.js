@@ -96,3 +96,28 @@ window.loadOverviewAlbums = loadOverviewAlbums;
 window.loadOverviewDiscs = loadOverviewAlbums;
 window.editDiscById = window.editAlbumById;
 window.deleteDiscById = window.deleteAlbumById;
+
+// Enable the New Branch button from the Overview
+document.addEventListener('click', async (event) => {
+    const btnNewBranch = event.target.closest('#openBranchModal');
+    if (btnNewBranch) {
+        
+        // 1. Change the side menu color to visually highlight "Subsidiaries"
+        document.querySelectorAll('.menu-item').forEach(i => {
+            i.classList.remove('active');
+            if (i.innerText.includes('Filiales')) {
+                i.classList.add('active');
+            }
+        });
+
+        // 2. Load the branches view and WAIT for the HTML injection to complete
+        if (typeof window.loadView === 'function') {
+            await window.loadView('branches');
+            
+            // 3. Ahora que el HTML ya existe, buscamos y abrimos el modal
+            if (typeof window.openBranchModal === "function") {
+                window.openBranchModal();
+            }
+        }
+    }
+});
