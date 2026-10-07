@@ -1,5 +1,5 @@
 // Fetch and inject Header Component
-fetch("views/header_component.html")
+fetch("src/views/header_component.html")
   .then((response) => response.text())
   .then((data) => {
     document.getElementById("header-container").outerHTML = data;
@@ -7,7 +7,7 @@ fetch("views/header_component.html")
   .catch((error) => console.error("Error loading header component:", error));
 
 // Fetch and inject Sidebar Component
-fetch('views/sidebar_component.html')
+fetch('src/views/sidebar_component.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('sidebar-container').outerHTML = data;

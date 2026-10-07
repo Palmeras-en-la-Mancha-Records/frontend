@@ -3,7 +3,7 @@ function loadComponents() {
     // Inject Header Component
     const headerContainer = document.getElementById("header-container");
     if (headerContainer) {
-        axios.get("views/header_component.html")
+        axios.get("src/views/header_component.html")
             .then((response) => {
                 headerContainer.outerHTML = response.data;
                 const searchForm = document.querySelector(".search-container");
@@ -17,7 +17,7 @@ function loadComponents() {
     // Inject Sidebar Component
     const sidebarContainer = document.getElementById("sidebar-container");
     if (sidebarContainer) {
-        axios.get("views/sidebar_component.html")
+        axios.get("src/views/sidebar_component.html")
             .then(response => {
                 sidebarContainer.outerHTML = response.data;
                 initRouter();
@@ -33,7 +33,7 @@ function loadView(viewName) {
 
     mainView.innerHTML = '<div style="display:flex; justify-content:center; padding: 40px;"><i class="material-symbols-rounded" style="font-size: 48px; opacity: 0.5;">sync</i></div>';
     
-    return axios.get(`views/${viewName}.html`)
+    return axios.get(`src/views/${viewName}.html`)
         .then(response => {
             mainView.innerHTML = response.data;
 
