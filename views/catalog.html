@@ -11,12 +11,12 @@
     </div>
 
     <div class="header-actions">
-        <button class="btn btn-outline">
+        <button class="btn btn-outline" id="catalog-filter-badge">
             <div class="dot-yellow"></div>
-            0 Títulos Filtrados
+            <span id="catalog-filter-count">0 Títulos Filtrados</span>
         </button>
 
-        <button class="btn btn-outline">
+        <button class="btn btn-outline" id="catalog-btn-export">
             <i class="material-symbols-rounded">download</i>
             Exportar CSV
         </button>
@@ -27,82 +27,62 @@
 <section class="filter-card">
     <section class="filter-grid">
         <section class="filter-group">
-            <label class="filter-label">
+            <label class="filter-label" for="filter-search-input">
                 <i class="material-symbols-rounded">search</i>
                 Buscar Álbum o Artista
             </label>
-            <input type="text" placeholder="El Poeta Halley" class="filter-input">
+            <input type="text" placeholder="Buscar por título, artista o género..." class="filter-input" id="filter-search-input">
         </section>
 
         <section class="filter-group">
-            <label class="filter-label">
-                <i class="material-symbols-rounded">music_note</i>
-                Género Musical
-            </label>
-            <select class="filter-select">
-                <option>Indie Rock</option>
-                <option>Pop Alternativo</option>
-            </select>
-        </section>
-
-        <section class="filter-group">
-            <label class="filter-label">
-                <i class="material-symbols-rounded">album</i>
-                Formato Físico
-            </label>
-            <select class="filter-select">
-                <option>Todos los formatos</option>
-            </select>
-        </section>
-
-        <section class="filter-group">
-            <label class="filter-label">
+            <label class="filter-label" for="filter-label-select">
                 <i class="material-symbols-rounded">domain</i>
                 Sello / Discográfica
             </label>
-            <select class="filter-select">
-                <option>Warner Music Spain</option>
+            <select class="filter-select" id="filter-label-select">
+                <option value="">Todos los sellos</option>
             </select>
         </section>
 
         <section class="filter-group">
-            <label class="filter-label">
+            <label class="filter-label" for="filter-store-select">
                 <i class="material-symbols-rounded">storefront</i>
                 Tiendas
             </label>
-            <select class="filter-select">
-                <option>Todas las tiendas</option>
+            <select class="filter-select" id="filter-store-select">
+                <option value="">Todas las tiendas</option>
             </select>
         </section>
     </section>
 
-    <section class="genres-row">
+    <section class="genres-row" id="catalog-genres-row">
         <span class="genres-label">
             <i class="material-symbols-rounded">tune</i>
             GÉNEROS:
         </span>
 
-        <span class="tag active">Indie Rock</span>
-        <span class="tag inactive">Pop Alternativo</span>
-        <span class="tag inactive">Flamenco Urbano</span>
-        <span class="tag inactive">Shoegaze / Dream Pop</span>
-        <span class="tag inactive">Electrónica</span>
+        <span class="tag active" data-genre="">Todos</span>
+        <span class="tag inactive" data-genre="Indie Rock">Indie Rock</span>
+        <span class="tag inactive" data-genre="Pop Alternativo">Pop Alternativo</span>
+        <span class="tag inactive" data-genre="Flamenco Urbano">Flamenco Urbano</span>
+        <span class="tag inactive" data-genre="Shoegaze / Dream Pop">Shoegaze / Dream Pop</span>
+        <span class="tag inactive" data-genre="Electrónica">Electrónica</span>
     </section>
 
     <footer class="filter-actions">
-        <button class="btn btn-outline">
+        <button class="btn btn-outline" id="filter-btn-clear">
             <i class="material-symbols-rounded">refresh</i>
             Limpiar
         </button>
 
-        <button class="btn btn-dark">
+        <button class="btn btn-dark" id="filter-btn-apply">
             <i class="material-symbols-rounded">filter_alt</i>
             Aplicar Filtros
         </button>
 
-        <button class="btn btn-yellow">
+        <button class="btn btn-yellow" id="filter-btn-add">
             <i class="material-symbols-rounded">add_circle</i>
-            Nuevo Disco Físico
+            Nuevo Disco
         </button>
     </footer>
 </section>
@@ -130,3 +110,147 @@
     <h3 class="empty-state-title">El catálogo está vacío</h3>
     <p class="empty-state-desc">No hay ediciones físicas para mostrar con los filtros actuales. El catálogo se conectará y sincronizará con el backend próximamente.</p>
 </section>
+
+
+<dialog id="discModal" class="modal" aria-labelledby="modalTitle">
+    <section class="modal-content modal-large">
+
+        <button
+            id="closeModal"
+            class="close"
+            type="button"
+            aria-label="Cerrar ventana"
+        >
+            ×
+        </button>
+
+        <h2 id="modalTitle">Añadir disco</h2>
+
+        <form id="discForm">
+
+            <div class="modal-grid">
+
+                <!-- Album Data -->
+                <fieldset class="modal-col">
+                    <legend>Datos del disco</legend>
+
+                    <label for="title">Título</label>
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        required
+                    >
+
+                    <label for="artist">Artista</label>
+                    <input
+                        type="text"
+                        id="artist"
+                        name="artist"
+                        required
+                    >
+
+                    <label for="release_year">Año de lanzamiento</label>
+                    <input
+                        type="number"
+                        id="release_year"
+                        name="release_year"
+                        required
+                    >
+
+                    <label for="genre">Género</label>
+                    <input
+                        type="text"
+                        id="genre"
+                        name="genre"
+                        required
+                    >
+
+                    <label for="label_id">Discográfica</label>
+                    <select
+                        id="label_id"
+                        name="label_id"
+                        required
+                    >
+                        <option value="">Selecciona una discográfica</option>
+                    </select>
+
+                    <label for="format_id">Formato</label>
+                    <select
+                        id="format_id"
+                        name="format_id"
+                        required
+                    >
+                        <option value="">Selecciona un formato</option>
+                    </select>
+
+                    <label for="price">Precio</label>
+                    <input
+                        type="number"
+                        id="price"
+                        name="price"
+                        step="0.01"
+                        min="0"
+                        required
+                    >
+
+                    <label for="stock">Stock</label>
+                    <input
+                        type="number"
+                        id="stock"
+                        name="stock"
+                        min="0"
+                        required
+                    >
+                </fieldset>
+
+                
+                <fieldset class="modal-col">
+                    <legend>Portada del disco</legend>
+
+                    <div
+                        class="image-upload-box"
+                        id="imageUploadBox"
+                    >
+                        <input
+                            type="file"
+                            id="cover_image_file"
+                            name="cover_image_file"
+                            accept="image/*"
+                            aria-label="Seleccionar portada del disco"
+                        >
+
+                        <i
+                            class="material-symbols-rounded upload-icon"
+                            aria-hidden="true"
+                        >
+                            add_photo_alternate
+                        </i>
+
+                        <p>
+                            Haz clic para seleccionar<br>
+                            la portada
+                        </p>
+
+                        <img
+                            id="coverPreview"
+                            src="src/img/dvd_placeholder.png"
+                            alt="Previsualización de la portada"
+                        >
+                    </div>
+                </fieldset>
+
+            </div>
+
+            <footer class="modal-footer">
+                <button
+                    type="submit"
+                    class="btn-submit"
+                >
+                    Añadir disco
+                </button>
+            </footer>
+
+        </form>
+    </section>
+</dialog>
