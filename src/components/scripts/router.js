@@ -29,11 +29,11 @@ function loadComponents() {
 // Router & View Management
 function loadView(viewName) {
     const mainView = document.getElementById('main-view');
-    if (!mainView) return;
+    if (!mainView) return Promise.resolve();
 
     mainView.innerHTML = '<div style="display:flex; justify-content:center; padding: 40px;"><i class="material-symbols-rounded" style="font-size: 48px; opacity: 0.5;">sync</i></div>';
     
-    axios.get(`views/${viewName}.html`)
+    return axios.get(`views/${viewName}.html`)
         .then(response => {
             mainView.innerHTML = response.data;
 
