@@ -4,7 +4,7 @@ const PLACEHOLDER_COVER = "src/img/dvd_placeholder.png";
 let albumsData = [];
 let editingAlbumId = null;
 
-// ===================== UTILIDADES =====================
+// ===================== UTILITIES =====================
 
 function coverSrc(url) {
     const value = (url ?? "").trim();
@@ -38,7 +38,7 @@ function extractAlbumsArray(data) {
     return [];
 }
 
-// ===================== CATÁLOGO (GET /albums/) =====================
+// ===================== CATALOGUE (GET /albums/) =====================
 
 function getCatalogueFilters() {
     const params = {};
@@ -82,7 +82,6 @@ async function loadAlbums() {
 function visibleCatalogueAlbums() {
     const label = (document.getElementById("filter-label")?.value || "").trim().toLowerCase();
     
-    // Ignorar si el filtro está vacío o indica "todos"
     if (!label || label === "todos" || label === "all") {
         return albumsData;
     }
@@ -158,7 +157,6 @@ function initAlbums() {
     const grid = document.getElementById("catalog-grid");
     if (!grid) return;
 
-    // Delegación de eventos para botones de Editar y Eliminar
     if (!grid.dataset.bound) {
         grid.dataset.bound = "true";
         grid.addEventListener("click", (e) => {
@@ -210,7 +208,7 @@ function initAlbums() {
     loadAlbums();
 }
 
-// ===================== OVERVIEW (Últimos discos) =====================
+// ===================== OVERVIEW (Last albums) =====================
 
 function latestAlbumCardTemplate(album) {
     return `
@@ -248,7 +246,7 @@ async function loadOverviewAlbums() {
     }
 }
 
-// ===================== MODAL CREAR / EDITAR =====================
+// ===================== CREATE / UPDATE MODAL =====================
 
 function openAlbumModal(album = null) {
     const modal = document.getElementById("discModal");
@@ -295,7 +293,7 @@ function closeAlbumModal() {
     if (box) box.classList.remove("has-file");
 }
 
-// POST /albums/ (nuevo) | PUT /albums/{id} (editar)
+// POST /albums/ (new) | PUT /albums/{id} (edit)
 async function saveAlbum(event) {
     event.preventDefault();
 
@@ -384,7 +382,7 @@ function bindAlbumModal() {
     });
 }
 
-// ===================== INICIALIZACIÓN =====================
+// ===================== INITIALIZATION =====================
 
 function initApp() {
     bindAlbumModal();
