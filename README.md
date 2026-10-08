@@ -400,47 +400,6 @@ Album
 
 El frontend consume el modelo de datos definido por el backend.
 
-## Modelo actual
-
-```mermaid
-erDiagram
-    FORMAT ||--o{ ALBUM : "format_id"
-    ALBUM {
-        int id PK
-        string title
-        string artist
-        int release_year
-        string genre
-        string record_label
-        float price
-        int stock
-        int format_id FK
-        string cover_image_url
-    }
-
-    FORMAT {
-        int id PK
-        string name
-        string description
-    }
-
-    BRANCH {
-        int id PK
-        string name
-        string address
-        string phone
-    }
-
-    LABEL {
-        int id PK
-        string name
-        string country
-        string website
-    }
-```
-
----
-
 # Modelo previsto
 
 La arquitectura final del proyecto contempla una relación N:M entre Albums y Formats.
