@@ -1,15 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Palmeras Records - Catálogo Físico Master</title>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="components/header_component.css">
-    <link rel="stylesheet" href="components/sidebar_component.css">
+    <link rel="stylesheet" href="src/views/styles/styles.css">
 </head>
 
 <body>
@@ -18,102 +15,23 @@
 
     <!-- Layout Wrapper -->
     <div class="main-wrapper">
-
         <!-- Header Component -->
         <div id="header-container"></div>
 
         <!-- Main Content -->
-        <main class="content">
-            <!-- Filters -->
-            <div class="filter-card">
-                <div class="filter-grid">
-                    <div class="filter-group">
-                        <label class="filter-label"><i class="material-symbols-rounded">search</i> Buscar Álbum o
-                            Artista</label>
-                        <input type="text" placeholder="El Poeta Halley" class="filter-input">
-                    </div>
-                    <div class="filter-group">
-                        <label class="filter-label"><i class="material-symbols-rounded">music_note</i> Género
-                            Musical</label>
-                        <select class="filter-select">
-                            <option>Indie Rock</option>
-                            <option>Pop Alternativo</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label class="filter-label"><i class="material-symbols-rounded">album</i> Formato Físico</label>
-                        <select class="filter-select">
-                            <option>Todos los formatos</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label class="filter-label"><i class="material-symbols-rounded">domain</i> Sello /
-                            Discográfica</label>
-                        <select class="filter-select">
-                            <option>Warner Music Spain</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label class="filter-label"><i class="material-symbols-rounded">storefront</i> Hub / Tienda
-                            Fnac</label>
-                        <select class="filter-select">
-                            <option>Todos los Hubs</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="genres-row">
-                    <span class="genres-label"><i class="material-symbols-rounded">tune</i> GÉNEROS:</span>
-                    <span class="tag active">Indie Rock</span>
-                    <span class="tag inactive">Pop Alternativo</span>
-                    <span class="tag inactive">Flamenco Urbano</span>
-                    <span class="tag inactive">Shoegaze / Dream Pop</span>
-                    <span class="tag inactive">Electrónica</span>
-                </div>
-
-                <div class="filter-actions">
-                    <button class="btn btn-outline">
-                        <i class="material-symbols-rounded">refresh</i> Limpiar
-                    </button>
-                    <button class="btn btn-dark">
-                        <i class="material-symbols-rounded">filter_alt</i> Aplicar Filtros
-                    </button>
-                    <button class="btn btn-yellow">
-                        <i class="material-symbols-rounded">add_circle</i> Nuevo Disco Físico
-                    </button>
-                </div>
-            </div>
-
-            <!-- Grid Header -->
-            <div class="grid-header">
-                <div class="grid-title-group">
-                    <h2 class="grid-title">Catálogo Fnac & Sellos Asociados</h2>
-                    <span class="badge-dark">0 ediciones activas</span>
-                </div>
-                <div class="sort-btn">
-                    <i class="material-symbols-rounded">sort</i> Orden: Disponibilidad & Stock Global
-                </div>
-            </div>
-
-            <!-- Records, ready for Back-end -->
-            <div class="cards-grid" id="catalog-grid">
-                <!-- Dynamic content -->
-            </div>
-
-            <div
-                style="text-align: center; padding: 80px 24px; color: var(--text-light); background-color: white; border-radius: 16px; border: 1px dashed var(--border); margin-bottom: 40px;">
-                <i class="material-symbols-rounded"
-                    style="font-size: 48px; margin-bottom: 16px; color: var(--border-dark); opacity: 0.3;">album</i>
-                <h3 style="font-size: 18px; font-weight: bold; color: var(--text-dark); margin-bottom: 8px;">El catálogo
-                    está vacío</h3>
-                <p style="font-size: 14px; max-width: 400px; margin: 0 auto;">No hay ediciones físicas para mostrar con
-                    los filtros actuales. El catálogo se conectará y sincronizará con el backend próximamente.</p>
-            </div>
-
+        <main class="content" id="main-view">
+        <!-- Contenido dinámico inyectado aquí -->
         </main>
     </div>
 
-    <script src="script.js"></script>
-</body>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.9/dist/axios.min.js"></script>
+    <script src="src/components/scripts/config.js"></script>
+    <script src="src/components/scripts/modal_options.js"></script>
+    <script src="src/components/scripts/image_uploader.js"></script>
+    <script src="src/components/scripts/modal.js"></script>
+    <script src="src/components/scripts/overview.js"></script>
+    <script src="src/components/scripts/catalog.js"></script>
+    <script src="src/components/scripts/branches.js"></script>
+    <script src="src/components/scripts/router.js"></script>
+  </body>
 </html>

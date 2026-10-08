@@ -1,2 +1,2 @@
 # frontend
-repositorio dedicado al frontend
+repositorio dedicado al frontend con conexion al backend

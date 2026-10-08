@@ -1,0 +1,118 @@
+<header class="page-header">
+    <div>
+        <div class="breadcrumbs">
+            <span class="bc-link">Red Comercial</span>
+            <span class="bc-separator">/</span>
+            <span class="bc-current">Filiales</span>
+        </div>
+
+        <h1 class="page-title">Filiales</h1>
+        <p class="page-desc">Gestión de las tiendas y puntos de venta de Palmeras Records.</p>
+    </div>
+
+    <div class="header-actions">
+        <button class="btn btn-outline">
+            <div class="dot-yellow"></div>
+            <span id="branches-count">0</span>&nbsp;Filiales
+        </button>
+
+        <button class="btn btn-yellow" id="branches-new-btn">
+            <i class="material-symbols-rounded">add_circle</i>
+            Nueva Filial
+        </button>
+    </div>
+</header>
+
+
+<header class="grid-header">
+    <div class="grid-title-group">
+        <h2 class="grid-title">Listado de Filiales</h2>
+        <span class="badge-dark">
+            <span id="branches-badge">0</span> filiales activas
+        </span>
+    </div>
+</header>
+
+
+<section class="branches-grid" id="branches-grid">
+    
+</section>
+
+<section class="empty-state" id="branches-empty">
+    <i class="material-symbols-rounded empty-state-icon">storefront</i>
+    <h3 class="empty-state-title">No hay filiales</h3>
+    <p class="empty-state-desc">Todavía no hay filiales para mostrar.</p>
+</section>
+
+<!-- Pop-up window: create / edit -->
+<dialog class="branch-modal" id="branch-modal">
+    <section class="branch-modal-box">
+
+        <h2 class="branch-modal-title" id="branch-modal-title">
+            Nueva filial
+        </h2>
+
+        <form id="branch-form" class="branch-form">
+
+            <input type="hidden" id="branch-input-id">
+
+            <section class="filter-group">
+                <label class="filter-label" for="branch-input-name">
+                    <i class="material-symbols-rounded">storefront</i> Nombre
+                </label>
+
+                <input
+                    type="text"
+                    id="branch-input-name"
+                    class="filter-input"
+                    required
+                >
+            </section>
+
+            <section class="filter-group">
+                <label class="filter-label" for="branch-input-address">
+                    <i class="material-symbols-rounded">location_on</i> Dirección
+                </label>
+
+                <input
+                    type="text"
+                    id="branch-input-address"
+                    class="filter-input"
+                    required
+                >
+            </section>
+
+            <section class="filter-group">
+                <label class="filter-label" for="branch-input-phone">
+                    <i class="material-symbols-rounded">call</i> Teléfono
+                </label>
+
+                <input
+                    type="text"
+                    id="branch-input-phone"
+                    class="filter-input"
+                    required
+                >
+            </section>
+
+            <footer class="branch-form-actions">
+                <button
+                    type="button"
+                    class="btn btn-outline"
+                    id="branch-cancel-btn"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-yellow"
+                    id="branch-save-btn"
+                >
+                    <i class="material-symbols-rounded">save</i> Guardar
+                </button>
+            </footer>
+
+        </form>
+    </section>
+</dialog>

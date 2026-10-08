@@ -1,0 +1,197 @@
+/* --- Branches Grid --- */
+.branches-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding-bottom: 40px;
+}
+
+/* --- Branch Card --- */
+.branch-card {
+  background-color: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.branch-name {
+  font-weight: 800;
+  font-size: 18px;
+  color: #111827;
+  line-height: 1.2;
+}
+.branch-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-gray);
+  font-size: 14px;
+}
+.branch-info i {
+  color: var(--yellow);
+}
+
+.branch-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #f3f4f6;
+}
+.branch-btn {
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background: none;
+  transition: all 0.2s;
+}
+.branch-btn-edit {
+  color: #4b5563;
+}
+.branch-btn-edit:hover {
+  background-color: #f9fafb;
+  border-color: var(--border);
+}
+.branch-btn-edit i {
+  color: var(--yellow);
+}
+.branch-btn-delete {
+  color: var(--red-text);
+}
+.branch-btn-delete:hover {
+  background-color: #fef2f2;
+  border-color: #fca5a5;
+}
+
+/* --- Branches Grid --- */
+.branches-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding-bottom: 40px;
+}
+
+/* --- Branch Card --- */
+.branch-card {
+  background-color: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.branch-name {
+  font-weight: 800;
+  font-size: 18px;
+  color: #111827;
+  line-height: 1.2;
+}
+.branch-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-gray);
+  font-size: 14px;
+}
+.branch-info i {
+  color: var(--yellow);
+}
+
+.branch-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #f3f4f6;
+}
+.branch-btn {
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background: none;
+  transition: all 0.2s;
+}
+.branch-btn-edit {
+  color: #4b5563;
+}
+.branch-btn-edit:hover {
+  background-color: #f9fafb;
+  border-color: var(--border);
+}
+.branch-btn-edit i {
+  color: var(--yellow);
+}
+.branch-btn-delete {
+  color: var(--red-text);
+}
+.branch-btn-delete:hover {
+  background-color: #fef2f2;
+  border-color: #fca5a5;
+}
+
+/* --- Create / Edit Modal --- */
+.branch-modal {
+  border: none;
+  border-radius: 16px;
+  padding: 0;
+  width: min(420px, calc(100% - 32px));
+  max-width: 420px;
+  margin: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.branch-modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+
+}
+
+.branch-modal-box {
+  background-color: white;
+  border-radius: 16px;
+  padding: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.branch-modal-title {
+  font-weight: 800;
+  font-size: 20px;
+  color: #111827;
+  margin-bottom: 16px;
+}
+.branch-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.branch-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 8px;
+}
+.branch-form-actions .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

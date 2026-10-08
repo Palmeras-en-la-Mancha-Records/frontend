@@ -1,0 +1,20 @@
+.navbar { 
+  height: 64px; 
+  background-color: var(--nav-bg); 
+  border-bottom: 1px solid var(--border-dark); 
+  display: flex; 
+  align-items: center; 
+  padding: 0 24px; 
+  flex-shrink: 0; 
+  position: relative;
+}
+
+/* Navbar Elements */
+.nav-left { display: flex; align-items: center; gap: 16px; }
+.lab-tag { background-color: var(--yellow); color: var(--sidebar-bg); font-weight: bold; font-size: 12px; padding: 6px 12px; border-radius: 6px; letter-spacing: 0.025em; }
+.nav-title { color: white; font-weight: 600; font-size: 14px; }
+
+.search-container { position: absolute; left: 50%; transform: translateX(-50%); width: 400px; }
+.search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-light); font-size: 16px; }
+.search-input { width: 100%; background-color: #1e1e28; color: #e5e7eb; font-size: 14px; border-radius: 9999px; padding: 8px 16px 8px 36px; border: 1px solid var(--border-dark); outline: none; transition: border-color 0.2s; }
+.search-input:focus { border-color: var(--yellow); }
