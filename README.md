@@ -18,7 +18,6 @@ La interfaz se conecta con el backend desarrollado con FastAPI mediante peticion
 - [Variables de entorno](#variables-de-entorno)
 - [Conexión con el backend](#conexión-con-el-backend)
 - [Arquitectura de datos](#arquitectura-de-datos)
-- [Diagrama DER](#diagrama-der)
 - [Ejecución](#ejecución)
 - [Documentación de endpoints](#documentación-de-endpoints)
   - [Albums](#albums)
@@ -399,52 +398,6 @@ Album
 # Diagrama DER
 
 El frontend consume el modelo de datos definido por el backend.
-
-# Modelo previsto
-
-La arquitectura final del proyecto contempla una relación N:M entre Albums y Formats.
-
-```mermaid
-erDiagram
-    ALBUM ||--o{ ALBUM_FORMAT : contains
-    FORMAT ||--o{ ALBUM_FORMAT : contains
-
-    ALBUM {
-        int id PK
-        string title
-        string artist
-        int release_year
-        string genre
-        int label_id FK
-        string cover_image_url
-    }
-
-    FORMAT {
-        int id PK
-        string name
-        string description
-    }
-
-    ALBUM_FORMAT {
-        int album_id FK
-        int format_id FK
-        float price
-        int stock
-    }
-```
-
-El objetivo es permitir que un mismo álbum tenga diferentes ediciones:
-
-```text
-Álbum
-├── Vinilo → 24.99 € → 10 unidades
-├── CD     → 14.99 € → 20 unidades
-└── Cassette → 12.99 € → 5 unidades
-```
-
-Esta estructura todavía está pendiente de integrarse completamente en el frontend y backend.
-
----
 
 # Ejecución
 
